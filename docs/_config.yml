@@ -1,6 +1,6 @@
 theme: jekyll-theme-cayman
 title: Feed the Plants
-description: Dev blog for my plant simulator game
+description: a game dev blog
 baseurl: /plantsim
 gems: 
   - jekyll-feed

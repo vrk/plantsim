@@ -7,7 +7,7 @@ id: 100
 ---
 
 ## <a href="{{ site.baseurl }}{{ page.url }}">{{ page.title }}</a>
-_{{ page.date | date: '%B %d, %Y' }}_
+#### {{ page.date | date: '%B %d, %Y' }}
 
 ### Game design
 
