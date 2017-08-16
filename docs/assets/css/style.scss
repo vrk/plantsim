@@ -20,6 +20,16 @@ a {
 
 body {
   font-family: 'Roboto Mono', monospace;
+  background-color: #FFF1E8;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: '04b03', 'Roboto Mono', monospace;
 }
 
 .main-content h1,
@@ -28,12 +38,11 @@ body {
 .main-content h4,
 .main-content h5,
 .main-content h6 {
-  color: #2196f3;
-  font-family: '04b03', 'Roboto Mono', monospace;
+  color: #008751;
 }
 
 .page-header {
-  background-color: #383838;
+  background-color: black;
   background-image: none;
 }
 
