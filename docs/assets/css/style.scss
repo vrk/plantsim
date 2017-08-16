@@ -30,6 +30,7 @@ h4,
 h5,
 h6 {
   font-family: '04b03', 'Roboto Mono', monospace;
+  margin: 0;
 }
 
 .main-content h1,
@@ -39,6 +40,14 @@ h6 {
 .main-content h5,
 .main-content h6 {
   color: #008751;
+}
+
+.main-content h2 {
+  font-size: 2em;
+}
+
+.main-content h3 {
+  font-size: 1.5em;
 }
 
 .page-header {
