@@ -23,7 +23,10 @@ The plant will grow in random directions, depending on watering + space availabl
 
 I drew these by hand in PICO-8's sprite editor:
 
-(**TODO:** add pics)
+<img src="{{ site.url }}{{ site.baseurl }}/assets/images/mock1-seed.png" height="300" />
+<img src="{{ site.url }}{{ site.baseurl }}/assets/images/mock2-sprout.png" height="300" />
+<img src="{{ site.url }}{{ site.baseurl }}/assets/images/mock3-flowers.png" height="300" />
+<img src="{{ site.url }}{{ site.baseurl }}/assets/images/mock4-strawberries.png" height="300" />
 
 ### Vague game ideas
 
