@@ -1,6 +1,6 @@
 theme: jekyll-theme-cayman
-title: Learn To Curl
-description: Documenting my journey to learn to use a curling iron
-plugins:
+title: Feed the Plants
+description: Dev blog for my plant simulator game
+baseurl: /plantsim
+gems: 
   - jekyll-feed
-baseurl: /LearnToCurl
