@@ -6,10 +6,10 @@
 
 @font-face {
     font-family: '04b03';
-    src:url('{{ site.baseurl }}assets/fonts/04b03.ttf.woff') format('woff'),
-        url('{{ site.baseurl }}assets/fonts/04b03.ttf.svg#04b03') format('svg'),
-        url('{{ site.baseurl }}assets/fonts/04b03.ttf.eot'),
-        url('{{ site.baseurl }}assets/fonts/04b03.ttf.eot?#iefix') format('embedded-opentype'); 
+    src:url('{{ site.baseurl }}/assets/fonts/04b03.ttf.woff') format('woff'),
+        url('{{ site.baseurl }}/assets/fonts/04b03.ttf.svg#04b03') format('svg'),
+        url('{{ site.baseurl }}/assets/fonts/04b03.ttf.eot'),
+        url('{{ site.baseurl }}/assets/fonts/04b03.ttf.eot?#iefix') format('embedded-opentype'); 
     font-weight: normal;
     font-style: normal;
 }
