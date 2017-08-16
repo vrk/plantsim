@@ -43,9 +43,7 @@ I drew these by hand in PICO-8's sprite editor:
 - Milestone 2: Port game to [PICO-8](https://www.lexaloffle.com/pico-8.php) ???
 - Milestone 3: Run the PICO-8 on a Raspberry Pi [with a cute display](https://www.lexaloffle.com/bbs/?tid=3085)
 
----
-
-## For tomorrow
+### For tomorrow
 - Start coding M1!
   - Decide on game world size
   - Create a canvas with pixel grid
