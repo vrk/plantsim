@@ -15,7 +15,7 @@
 }
 
 a {
-  color: #E91E63;
+  color: #FF004D;
 }
 
 body {
@@ -40,6 +40,7 @@ h6 {
 .main-content h5,
 .main-content h6 {
   color: #008751;
+  margin: 0;
 }
 
 .main-content h2 {
@@ -62,4 +63,5 @@ h6 {
 .main-content hr {
   margin: 2rem 0;
   height: 7px;
+  background-color: #FFEC27;
 }

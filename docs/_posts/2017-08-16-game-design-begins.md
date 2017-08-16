@@ -9,8 +9,6 @@ id: 100
 ## <a href="{{ site.baseurl }}{{ page.url }}">{{ page.title }}</a>
 #### {{ page.date | date: '%B %d, %Y' }}
 
-### Game design
-
 I'm creating a game I'm temporarily calling **Plant Sim**\*, which lets you plant a strawberry plant from seed and follow its growth!
 
 It's like a [Tamagotchi](https://en.wikipedia.org/wiki/Tamagotchi), but with a strawberry plant: if you water the plant daily, you'll see it grow! You'll get a score that reflects how healthy and happy your plant is.
