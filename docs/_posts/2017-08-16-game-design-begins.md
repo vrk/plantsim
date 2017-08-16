@@ -6,8 +6,8 @@ comments: true
 id: 100
 ---
 
-## Plant Sim Begins!
-_August 16, 2017_
+## <a href="{{ site.baseurl }}{{ page.url }}">{{ page.title }}</a>
+_{{ page.date | date: '%B %d, %Y' }}_
 
 ### Game design
 
