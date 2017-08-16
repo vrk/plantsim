@@ -9,8 +9,6 @@
     written by <a href="https://github.com/vrk/">vrk</a> on <a href="{{ site.baseurl }}{{ post.url }}">{{ post.date | date: "%Y-%m-%d" }}</a>
   </footer>
     
-  <hr>
-
   </div>
 {% endfor %}
 
