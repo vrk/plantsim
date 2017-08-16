@@ -21,6 +21,7 @@ a {
 body {
   font-family: 'Roboto Mono', monospace;
   background-color: #FFF1E8;
+  color: #5F574F;
 }
 
 h1,
@@ -69,8 +70,25 @@ h6 {
 .main-content footer {
   border-top: solid 2px #5F574F;
   padding-top: 0.5em;
+  font-style: italic;
 }
 
 .site-footer {
   border-top: solid 2px #5F574F;
 }
+
+.site-footer-credits {
+  color: #83769C;
+}
+
+footer.site-footer {
+  color: #83769C;
+  border: 0;
+  font-style: normal;
+  margin-top: 3em;
+}
+
+footer.site-footer a {
+  color: #FF77A8;
+}
+
