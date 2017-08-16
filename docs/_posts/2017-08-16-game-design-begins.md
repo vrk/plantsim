@@ -19,7 +19,9 @@ The plant will grow in random directions, depending on watering + space availabl
 
 ### Mock plants
 
-I drew these by hand in PICO-8's sprite editor:
+I drew these by hand in PICO-8's sprite editor\*:
+
+(\*I know that this is not really the purpose of PICO-8's sprite editor but it was convenient for my needs!)
 
 <img src="{{ site.url }}{{ site.baseurl }}/assets/images/mock1-seed.png" height="300" />
 <img src="{{ site.url }}{{ site.baseurl }}/assets/images/mock2-sprout.png" height="300" />
