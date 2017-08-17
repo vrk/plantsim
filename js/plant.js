@@ -5,6 +5,7 @@ class Plant {
     this.frontierCol = this.seedCol;
     this.frontierRow = this.seedRow;
     this.canvasGrid = canvasGrid;
+    this.prevColDelta = 0;
   }
 
   update() {
@@ -22,12 +23,20 @@ class Plant {
     } else {
       // Grow in a random direction -- weighted toward up.
       const random = Math.random();
-      if (random < 0.2) {
-        this.frontierCol = Math.min(PIXELS_WIDE - 1, this.frontierCol + 1);
-      } else if (random < 0.4) {
-        this.frontierCol = Math.max(0, this.frontierCol - 1);
+      let colDelta = 0;
+      if (random < 0.3 && this.prevColDelta != 1) {
+        colDelta = -1;
+      } else if (random < 0.6 && this.prevColDelta != -1) {
+        colDelta = 1;
+      } else {
+        this.frontierCol += this.prevColDelta;
       }
-      this.frontierRow--;
+
+      this.frontierCol = Math.min(PIXELS_WIDE - 1, Math.max(0, this.frontierCol + colDelta));
+      if (this.prevColDelta != colDelta || colDelta == 0) {
+        this.frontierRow--;
+      }
+      this.prevColDelta = colDelta;
     }
     this.canvasGrid.update(this.frontierCol, this.frontierRow, GREEN);
   }
