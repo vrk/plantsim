@@ -3,28 +3,17 @@ class World {
     this.canvasElement = document.querySelector('canvas');
     this.canvasGrid = new CanvasGrid(this.canvasElement);
     this.onCanvasClicked = this.onCanvasClicked.bind(this);
+
+    this.ground = new Ground(this.canvasGrid);
   }
 
   initialize() {
-    this.createGround();
+    this.ground.initialize();
     this.canvasElement.addEventListener('click', this.onCanvasClicked);
   }
 
   draw() {
     this.canvasGrid.draw();
-  }
-
-  createGround() {
-    // Top of soil
-    for (let col = 0; col < PIXELS_WIDE; col++) {
-      this.canvasGrid.update(col, PIXELS_WIDE - GROUND_HEIGHT, '#5F574F');
-    }
-    // Ground
-    for (let row = PIXELS_WIDE - GROUND_HEIGHT + 1; row < PIXELS_WIDE; row++) {
-      for (let col = 0; col < PIXELS_WIDE; col++) {
-        this.canvasGrid.update(col, row, '#AB5236');
-      }
-    }
   }
 
   onCanvasClicked(event) {
@@ -33,8 +22,9 @@ class World {
     const col = Math.floor(xPos / CANVAS_SIZE * PIXELS_WIDE);
     const row = Math.floor(yPos / CANVAS_SIZE * PIXELS_WIDE);
 
-    if (row > PIXELS_WIDE - GROUND_HEIGHT) {
-      this.canvasGrid.update(col, row, '#FFA300');
+    if (row > PIXELS_WIDE - GROUND_HEIGHT &&
+        row < PIXELS_WIDE -  GROUND_HEIGHT / 2) {
+      this.ground.addSeed(col, row);
     }
     this.draw();
   }
