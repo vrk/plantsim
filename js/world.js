@@ -21,10 +21,11 @@ class World {
     const yPos = event.offsetY;
     const col = Math.floor(xPos / CANVAS_SIZE * PIXELS_WIDE);
     const row = Math.floor(yPos / CANVAS_SIZE * PIXELS_WIDE);
-
-    if (row > PIXELS_WIDE - GROUND_HEIGHT &&
+    if (this.plant) {
+      this.plant.updateNextSquare();
+    } else if (row > PIXELS_WIDE - GROUND_HEIGHT &&
         row < PIXELS_WIDE -  GROUND_HEIGHT / 2) {
-      this.ground.addSeed(col, row);
+      this.plant = this.ground.addSeed(col, row);
     }
     this.draw();
   }

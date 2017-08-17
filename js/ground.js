@@ -21,7 +21,9 @@ class Ground {
     if (this.planted) {
       return;
     }
-    this.canvasGrid.update(col, row, '#FFA300');
     this.planted = true;
+    this.plant = new Plant(col, row, this.canvasGrid);
+    this.plant.update();
+    return this.plant;
   }
 }
