@@ -7,7 +7,7 @@ body {
 }
 
 #container {
-  width: 90vh;
+  width: 640px;
 }
 
 /* This is needed to make the height proportional to the width
