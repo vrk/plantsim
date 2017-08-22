@@ -17,11 +17,9 @@ class Stem {
     this.direction = nudge;
     this.minRow = this.initialRow - 3;
     if (nudge === LEAN_LEFT) {
-      console.log('left-leaning');
       this.maxCol = this.initialCol;
     } else if (nudge === LEAN_RIGHT) {
       this.minCol = this.initialCol;
-      console.log('right-leaning');
       this.constraints = {};
     }
   }
@@ -37,7 +35,6 @@ class Stem {
     spaces = this.filterByConstraints(spaces);
     const index = Math.floor(Math.random() * spaces.length);
     if (spaces.length > 0) {
-      console.log(`${this.direction.toString()}: ${spaces[index].col}, ${spaces[index].row}`);
       this.canvasGrid.update(this.frontierCol, this.frontierRow, DARK_GREEN);
       this.frontierCol = spaces[index].col;
       this.frontierRow = spaces[index].row;
@@ -45,7 +42,6 @@ class Stem {
 
       if (this.direction === LEAN_LEFT && this.frontierCol === 1 ||
           this.direction === LEAN_RIGHT && this.frontierCol === PIXELS_WIDE - 2) {
-        console.log('has reached edge!!');
         this.hasReachedEdge = true;
       }
     } else {
@@ -132,7 +128,6 @@ class Stem {
         if (neighbor.col === this.frontierCol && neighbor.row === this.frontierRow) {
           continue;
         }
-
 
         if (this.canvasGrid.isOccupied(neighbor.col, neighbor.row)) {
           return false;
