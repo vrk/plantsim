@@ -37,7 +37,6 @@ class Stem {
           row: this.frontierRow + yDelta
         };
         if (this.canvasGrid.isOccupied(potential.col, potential.row)) {
-          console.log(`first level occupied: ${potential.col}, ${potential.row}`);
           continue;
         }
 
@@ -71,7 +70,6 @@ class Stem {
         }
 
         if (this.canvasGrid.isOccupied(neighbor.col, neighbor.row)) {
-          console.log(`second level occupied: ${neighbor.col}, ${neighbor.row}`);
           return false;
         }
       }

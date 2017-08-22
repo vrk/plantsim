@@ -10,6 +10,12 @@ class CanvasGrid {
   }
 
   isOccupied(col, row) {
+    if (col < 0 || col >= PIXELS_WIDE) {
+      return true;
+    }
+    if (row < 0 || row >= PIXELS_WIDE) {
+      return true;
+    }
     return this.pixelData[col][row] !== null;
   }
 
