@@ -14,11 +14,6 @@ class Plant {
   }
 
   updateNextSquare() {
-    // Change current frontier color to dark green.
-    if (this.frontierRow >= 0 && this.seedRow != this.frontierRow) {
-      this.canvasGrid.update(this.frontierCol, this.frontierRow, DARK_GREEN);
-    }
-
     if (!this.stalk.isGrown) {
       this.stalk.grow(this.canvasGrid);
     } else if (!this.leftStem) {
@@ -26,8 +21,8 @@ class Plant {
       this.leftStem = this.stalk.getLeftStem();
       this.rightStem = this.stalk.getRightStem();
     } else {
-      this.leftStem.grow(this.canvasGrid);
-      this.rightStem.grow(this.canvasGrid);
+      this.leftStem.grow();
+      this.rightStem.grow();
     }
   }
 }

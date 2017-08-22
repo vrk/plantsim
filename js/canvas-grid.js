@@ -9,6 +9,10 @@ class CanvasGrid {
     this.initializePixels();
   }
 
+  isOccupied(col, row) {
+    return this.pixelData[col][row] !== null;
+  }
+
   initializePixels() {
     this.pixelData = [];
     for (let col = 0; col < PIXELS_WIDE; col++) {

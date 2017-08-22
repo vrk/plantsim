@@ -12,14 +12,14 @@ class Stalk {
     console.assert(this.isGrown);
     console.assert(!this.leftStemCreated);
     this.leftStemCreated = true;
-    return new Stem(this.frontierCol - 1, this.frontierRow);
+    return new Stem(this.frontierCol - 1, this.frontierRow, this.canvasGrid);
   }
 
   getRightStem() {
     console.assert(this.isGrown);
     console.assert(!this.rightStemCreated);
     this.rightStemCreated = true;
-    return new Stem(this.frontierCol + 1, this.frontierRow);
+    return new Stem(this.frontierCol + 1, this.frontierRow, this.canvasGrid);
   }
 
   grow(canvasGrid) {
