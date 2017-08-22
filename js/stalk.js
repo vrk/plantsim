@@ -4,6 +4,22 @@ class Stalk {
     this.frontierRow = row;
     this.isGrown = false;
     this.canvasGrid = canvasGrid;
+    this.leftStemCreated = false;
+    this.rightStemCreated = false;
+  }
+
+  getLeftStem() {
+    console.assert(this.isGrown);
+    console.assert(!this.leftStemCreated);
+    this.leftStemCreated = true;
+    return new Stem(this.frontierCol - 1, this.frontierRow);
+  }
+
+  getRightStem() {
+    console.assert(this.isGrown);
+    console.assert(!this.rightStemCreated);
+    this.rightStemCreated = true;
+    return new Stem(this.frontierCol + 1, this.frontierRow);
   }
 
   grow(canvasGrid) {

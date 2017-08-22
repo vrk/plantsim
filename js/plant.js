@@ -5,6 +5,8 @@ class Plant {
     this.canvasGrid = canvasGrid;
     this.prevColDelta = 0;
     this.stalk = new Stalk(col, row, this.canvasGrid);
+    this.leftStem = null;
+    this.rightStem = null;
   }
 
   update() {
@@ -19,6 +21,13 @@ class Plant {
 
     if (!this.stalk.isGrown) {
       this.stalk.grow(this.canvasGrid);
+    } else if (!this.leftStem) {
+      console.assert(!this.rightStem);
+      this.leftStem = this.stalk.getLeftStem();
+      this.rightStem = this.stalk.getRightStem();
+    } else {
+      this.leftStem.grow(this.canvasGrid);
+      this.rightStem.grow(this.canvasGrid);
     }
   }
 }
