@@ -1,9 +1,27 @@
 class Stem {
   constructor(col, row, canvasGrid) {
+    this.initialCol = col;
+    this.initialRow = row;
     this.frontierCol = col;
     this.frontierRow = row;
     this.isGrown = false;
     this.canvasGrid = canvasGrid;
+    this.totalSteps = 0;
+
+    this.direction = null
+  }
+
+  setConstraints(nudge) {
+    this.direction = nudge;
+    this.maxRow = this.initialRow + 3;
+    if (nudge === LEAN_LEFT) {
+      console.log('left-leaning');
+      this.maxCol = this.initialCol;
+    } else if (nudge === LEAN_RIGHT) {
+      this.minCol = this.initialCol;
+      console.log('right-leaning');
+      this.constraints = {};
+    }
   }
 
   grow() {
@@ -11,7 +29,10 @@ class Stem {
       return;
     }
 
-    const spaces = this.getValidFrontierNeighbors();
+    this.totalSteps++;
+
+    let spaces = this.getValidFrontierNeighbors();
+    spaces = this.filterByConstraints(spaces);
     const index = Math.floor(Math.random() * spaces.length);
     if (spaces.length > 0) {
       this.canvasGrid.update(this.frontierCol, this.frontierRow, DARK_GREEN);
@@ -21,6 +42,38 @@ class Stem {
     } else {
       this.isGrown = true;
     }
+  }
+
+  filterByConstraints(spaces) {
+    const filteredSpaces = [];
+    for (const space of spaces) {
+      if (this.direction === LEAN_LEFT && space.col > this.frontierCol) {
+        continue;
+      }
+      if (this.direction === LEAN_RIGHT && space.col < this.frontierCol) {
+        continue;
+      }
+      // Violates max col constraint.
+      if (this.maxCol && space.col > this.maxCol) {
+        console.log('violates max col');
+        continue;
+      }
+
+      // Violates min col constraint.
+      if (this.minCol && space.col < this.minCol) {
+        console.log('violates min col');
+        continue;
+      }
+
+      // Violates max row constraint.
+      if (this.maxRow && space.row > this.maxRow) {
+        console.log('violates max row');
+        continue;
+      }
+      // Passes all constraints!
+      filteredSpaces.push(space);
+    }
+    return filteredSpaces;
   }
 
   getValidFrontierNeighbors() {
