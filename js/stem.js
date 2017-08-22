@@ -8,12 +8,14 @@ class Stem {
     this.canvasGrid = canvasGrid;
     this.totalSteps = 0;
 
+    this.hasReachedEdge = false;
+
     this.direction = null
   }
 
   setConstraints(nudge) {
     this.direction = nudge;
-    this.maxRow = this.initialRow + 3;
+    this.minRow = this.initialRow - 3;
     if (nudge === LEAN_LEFT) {
       console.log('left-leaning');
       this.maxCol = this.initialCol;
@@ -35,10 +37,17 @@ class Stem {
     spaces = this.filterByConstraints(spaces);
     const index = Math.floor(Math.random() * spaces.length);
     if (spaces.length > 0) {
+      console.log(`${this.direction.toString()}: ${spaces[index].col}, ${spaces[index].row}`);
       this.canvasGrid.update(this.frontierCol, this.frontierRow, DARK_GREEN);
       this.frontierCol = spaces[index].col;
       this.frontierRow = spaces[index].row;
       this.canvasGrid.update(this.frontierCol, this.frontierRow, GREEN);
+
+      if (this.direction === LEAN_LEFT && this.frontierCol === 1 ||
+          this.direction === LEAN_RIGHT && this.frontierCol === PIXELS_WIDE - 2) {
+        console.log('has reached edge!!');
+        this.hasReachedEdge = true;
+      }
     } else {
       this.isGrown = true;
     }
@@ -47,30 +56,32 @@ class Stem {
   filterByConstraints(spaces) {
     const filteredSpaces = [];
     for (const space of spaces) {
-      if (this.direction === LEAN_LEFT && space.col > this.frontierCol) {
-        continue;
-      }
-      if (this.direction === LEAN_RIGHT && space.col < this.frontierCol) {
-        continue;
-      }
-      // Violates max col constraint.
-      if (this.maxCol && space.col > this.maxCol) {
-        console.log('violates max col');
+      // This is a dead-end so ignore.
+      // TODO: Ignore all deadends
+      if (space.col === this.frontierCol && space.row === GROUND_LEVEL - 2) {
         continue;
       }
 
-      // Violates min col constraint.
-      if (this.minCol && space.col < this.minCol) {
-        console.log('violates min col');
-        continue;
-      }
+      if (!this.hasReachedEdge) {
+        if (this.direction === LEAN_LEFT && space.col > this.frontierCol) {
+          continue;
+        }
+        if (this.direction === LEAN_RIGHT && space.col < this.frontierCol) {
+          continue;
+        }
+        // Violates max col constraint.
+        if (this.maxCol && space.col > this.maxCol) {
+          console.log('violates max col');
+          continue;
+        }
 
-      // Violates max row constraint.
-      if (this.maxRow && space.row > this.maxRow) {
-        console.log('violates max row');
-        continue;
+        // Violates min col constraint.
+        if (this.minCol && space.col < this.minCol) {
+          console.log('violates min col');
+          continue;
+        }
+
       }
-      // Passes all constraints!
       filteredSpaces.push(space);
     }
     return filteredSpaces;
@@ -121,6 +132,7 @@ class Stem {
         if (neighbor.col === this.frontierCol && neighbor.row === this.frontierRow) {
           continue;
         }
+
 
         if (this.canvasGrid.isOccupied(neighbor.col, neighbor.row)) {
           return false;
