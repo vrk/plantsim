@@ -9,6 +9,8 @@ id: 102
 ## <a href="{{ site.baseurl }}{{ page.url }}">{{ page.title }}</a>
 #### {{ page.date | date: '%B %d, %Y' }}
 
+Now there are two randomly growing stems!
+
 - [Live demo here]({{ site.url }}{{ site.baseurl }}/demos/aug22/index.html): Same as last time: click within the top half of the soil to plant a seed, then keep clicking the `<canvas>` to make the plant grow from the seed! But now with **two (2!)** semi-randomly growing stems.
 - [Source code at this point in history](https://github.com/vrk/plantsim/tree/bbd94068bfd1b222a34c4b50dafcb0f1ef5cde6f)
 
