@@ -7,16 +7,17 @@ class Plant {
     this.stalk = new Stalk(col, row, this.canvasGrid);
     this.leftStem = null;
     this.rightStem = null;
+    this.leftMiddleStem = null;
+    this.rightMiddleStem = null;
+
+    this.onNewLeftMiddleStem = this.onNewLeftMiddleStem.bind(this);
+    this.onNewRightMiddleStem = this.onNewRightMiddleStem.bind(this);
   }
 
   update() {
     this.canvasGrid.update(this.seedCol, this.seedRow, '#FFA300');
   }
 
-  createLeftConstraints() {
-    return {};
-  }
-  
   updateNextSquare() {
     if (!this.stalk.isGrown) {
       this.stalk.grow(this.canvasGrid);
@@ -25,11 +26,31 @@ class Plant {
       this.leftStem = this.stalk.getLeftStem();
       this.rightStem = this.stalk.getRightStem();
 
+      this.leftStem.setOnNewStemCallback(this.onNewLeftMiddleStem);
       this.leftStem.setConstraints(LEAN_LEFT);
+
+      this.rightStem.setOnNewStemCallback(this.onNewRightMiddleStem);
       this.rightStem.setConstraints(LEAN_RIGHT);
     } else {
       this.leftStem.grow();
       this.rightStem.grow();
+
+      if (this.leftMiddleStem) {
+        console.log('growin!');
+        this.leftMiddleStem.grow();
+      }
+      if (this.rightMiddleStem) {
+        console.log('growin 2!');
+        this.rightMiddleStem.grow();
+      }
     }
+  }
+
+  onNewLeftMiddleStem(leftMiddleStem) {
+    this.leftMiddleStem = leftMiddleStem;
+  }
+
+  onNewRightMiddleStem(rightMiddleStem) {
+    this.rightMiddleStem = rightMiddleStem;
   }
 }

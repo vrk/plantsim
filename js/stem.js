@@ -4,13 +4,13 @@ class Stem {
     this.initialRow = row;
     this.frontierCol = col;
     this.frontierRow = row;
-    this.isGrown = false;
     this.canvasGrid = canvasGrid;
+
+    this.isGrown = false;
     this.totalSteps = 0;
-
     this.hasReachedEdge = false;
-
-    this.direction = null
+    this.direction = null;
+    this.hasSprouted = false;
   }
 
   setConstraints(nudge) {
@@ -20,8 +20,11 @@ class Stem {
       this.maxCol = this.initialCol;
     } else if (nudge === LEAN_RIGHT) {
       this.minCol = this.initialCol;
-      this.constraints = {};
     }
+  }
+
+  setOnNewStemCallback(onNewStems) {
+    this.onNewStems = onNewStems;
   }
 
   grow() {
@@ -47,13 +50,36 @@ class Stem {
     } else {
       this.isGrown = true;
     }
+
+
+    if (!this.hasSprouted) {
+      // Save potential sprout point
+      if (!this.sproutCol) {
+        this.sproutCol = this.frontierCol;
+        this.sproutRow = this.frontierRow;
+      } else {
+        // Save the highest point we've seen.
+        if (this.frontierRow < this.sproutRow) {
+          this.sproutCol = this.frontierCol;
+          this.sproutRow = this.frontierRow;
+        }
+      }
+
+      if (this.totalSteps > 7) {
+        this.hasSprouted = true;
+        const newStem = new Stem(this.sproutCol, this.sproutRow, this.canvasGrid);
+        if (this.onNewStems) {
+          this.onNewStems(newStem);
+        }
+      }
+    }
   }
 
   filterByConstraints(spaces) {
     const filteredSpaces = [];
     for (const space of spaces) {
       // This is a dead-end so ignore.
-      // TODO: Ignore all deadends
+      // TODO: Ignore all deadends?
       if (space.col === this.frontierCol && space.row === GROUND_LEVEL - 2) {
         continue;
       }
@@ -71,19 +97,16 @@ class Stem {
         }
         // Violates max col constraint.
         if (this.maxCol && space.col > this.maxCol) {
-          console.log('violates max col');
           continue;
         }
 
         // Violates min col constraint.
         if (this.minCol && space.col < this.minCol) {
-          console.log('violates min col');
           continue;
         }
 
         // Violates min row constraint.
         if (this.minRow && space.row < this.minRow) {
-          console.log('violates min row');
           continue;
         }
       }
