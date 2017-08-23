@@ -11,7 +11,7 @@ id: 101
 
 Wooooo, I started coding!
 
-- [Live demo here](demos/aug17/index.html): Click within the top half of the soil to plant a seed, then keep clicking the `<canvas>` to make the plant grow from the seed! It'll grow in a different random walk each time.
+- [Live demo here]({{ site.url }}{{ site.baseurl }}/demos/aug17/index.html): Click within the top half of the soil to plant a seed, then keep clicking the `<canvas>` to make the plant grow from the seed! It'll grow in a different random walk each time.
 - [Source code at this point in history](https://github.com/vrk/plantsim/tree/1e3086acc75adb8c7d666378514624b4090eb7db)
 
 And here's a video of the action:

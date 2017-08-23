@@ -16,7 +16,6 @@ class Plant {
   createLeftConstraints() {
     return {};
   }
-  
   updateNextSquare() {
     if (!this.stalk.isGrown) {
       this.stalk.grow(this.canvasGrid);
