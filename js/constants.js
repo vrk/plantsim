@@ -5,9 +5,12 @@ const GROUND_HEIGHT = 16;
 
 const DARK_GREEN = '#008751';
 const GREEN = '#00E436';
+const YELLOW = '#FFA300';
 
 const GROUND_LEVEL = PIXELS_WIDE -  GROUND_HEIGHT;
 const SPROUT_POINT = GROUND_LEVEL - 4;
 
 const LEAN_LEFT = Symbol('stem leans left');
 const LEAN_RIGHT = Symbol('stem leans right');
+const LEAN_LEFT_MIDDLE = Symbol('stem leans left and up');
+const LEAN_RIGHT_MIDDLE = Symbol('stem leans right and up');

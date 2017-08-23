@@ -15,7 +15,7 @@ class Plant {
   }
 
   update() {
-    this.canvasGrid.update(this.seedCol, this.seedRow, '#FFA300');
+    this.canvasGrid.update(this.seedCol, this.seedRow, YELLOW);
   }
 
   updateNextSquare() {
@@ -36,11 +36,9 @@ class Plant {
       this.rightStem.grow();
 
       if (this.leftMiddleStem) {
-        console.log('growin!');
         this.leftMiddleStem.grow();
       }
       if (this.rightMiddleStem) {
-        console.log('growin 2!');
         this.rightMiddleStem.grow();
       }
     }

@@ -13,13 +13,18 @@ class Stem {
     this.hasSprouted = false;
   }
 
-  setConstraints(nudge) {
+  setConstraints(nudge, opt_colBound) {
     this.direction = nudge;
-    this.minRow = this.initialRow - 3;
     if (nudge === LEAN_LEFT) {
-      this.maxCol = this.initialCol;
+      this.maxCol = opt_colBound || this.initialCol;
+      this.minRow = this.initialRow - 3;
     } else if (nudge === LEAN_RIGHT) {
-      this.minCol = this.initialCol;
+      this.minCol = opt_colBound ||this.initialCol;
+      this.minRow = this.initialRow - 3;
+    } else if (nudge === LEAN_LEFT_MIDDLE) {
+      this.maxCol = opt_colBound || this.initialCol;
+    } else if (nudge === LEAN_RIGHT_MIDDLE) {
+      this.minCol = opt_colBound || this.initialCol;
     }
   }
 
@@ -51,7 +56,6 @@ class Stem {
       this.isGrown = true;
     }
 
-
     if (!this.hasSprouted) {
       // Save potential sprout point
       if (!this.sproutCol) {
@@ -65,12 +69,16 @@ class Stem {
         }
       }
 
-      if (this.totalSteps > 7) {
+      if (this.totalSteps > 4 && this.onNewStems) {
         this.hasSprouted = true;
         const newStem = new Stem(this.sproutCol, this.sproutRow, this.canvasGrid);
-        if (this.onNewStems) {
-          this.onNewStems(newStem);
+        if (this.direction === LEAN_LEFT) {
+          newStem.setConstraints(LEAN_LEFT_MIDDLE, this.initialCol + 1);
+        } else {
+          console.assert(this.direction === LEAN_RIGHT);
+          newStem.setConstraints(LEAN_RIGHT_MIDDLE, this.initialCol - 1);
         }
+        this.onNewStems(newStem);
       }
     }
   }
@@ -78,14 +86,20 @@ class Stem {
   filterByConstraints(spaces) {
     const filteredSpaces = [];
     for (const space of spaces) {
-      // This is a dead-end so ignore.
-      // TODO: Ignore all deadends?
-      if (space.col === this.frontierCol && space.row === GROUND_LEVEL - 2) {
-        continue;
+      // Ignore deadends.
+      if (space.col === this.frontierCol) {
+        if (space.row === GROUND_LEVEL - 2) {
+          continue;
+        }
+        if (space.row === this.minRow || space.row === this.maxRow) {
+          continue;
+        }
       }
 
-      if (space.col === this.frontierCol && space.row === this.minRow) {
-        continue;
+      if (space.row === this.frontierRow) {
+        if (space.col === this.minCol || space.col === this.maxCol) {
+          continue;
+        }
       }
 
       if (!this.hasReachedEdge) {
@@ -117,8 +131,13 @@ class Stem {
 
   getValidFrontierNeighbors() {
     const spaces = [];
+    let endY = 1;
+    if (this.direction === LEAN_LEFT_MIDDLE ||
+      this.direction === LEAN_RIGHT_MIDDLE) {
+      endY = 0;
+    }
     for (let xDelta = -1; xDelta <= 1; xDelta++) {
-      for (let yDelta = -1; yDelta <= 1; yDelta++) {
+      for (let yDelta = -1; yDelta <= endY; yDelta++) {
         // Ignore current frontier.
         if (yDelta === 0 && xDelta === 0) {
           continue;
