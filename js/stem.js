@@ -58,6 +58,10 @@ class Stem {
         continue;
       }
 
+      if (space.col === this.frontierCol && space.row === this.minRow) {
+        continue;
+      }
+
       if (!this.hasReachedEdge) {
         if (this.direction === LEAN_LEFT && space.col > this.frontierCol) {
           continue;
@@ -77,6 +81,11 @@ class Stem {
           continue;
         }
 
+        // Violates min row constraint.
+        if (this.minRow && space.row < this.minRow) {
+          console.log('violates min row');
+          continue;
+        }
       }
       filteredSpaces.push(space);
     }
