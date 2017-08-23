@@ -14,7 +14,7 @@ Now there are two randomly growing stems!
 - [Live demo here]({{ site.url }}{{ site.baseurl }}/demos/aug22/index.html): Same as last time: click within the top half of the soil to plant a seed, then keep clicking the `<canvas>` to make the plant grow from the seed! But now with **two (2!)** semi-randomly growing stems.
 - [Source code at this point in history](https://github.com/vrk/plantsim/tree/bbd94068bfd1b222a34c4b50dafcb0f1ef5cde6f)
 
-And a video of the action:
+Latest video:
 
 <video src="{{ site.url }}{{ site.baseurl }}/assets/videos/2-sprout-grow.mp4" height="300" autoplay loop></video>
 
