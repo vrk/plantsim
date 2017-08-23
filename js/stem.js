@@ -32,12 +32,65 @@ class Stem {
     this.onNewStems = onNewStems;
   }
 
+  bloom() {
+    if (!this.canBloom()) {
+      return;
+    }
+
+    this.isGrown = true;
+
+    // Set center to yellow.
+    this.canvasGrid.update(this.frontierCol, this.frontierRow, BRIGHT_YELLOW);
+    // Draw petals around the center.
+    this.canvasGrid.update(this.frontierCol - 1, this.frontierRow, PICO_WHITE);
+    this.canvasGrid.update(this.frontierCol + 1, this.frontierRow, PICO_WHITE);
+    this.canvasGrid.update(this.frontierCol, this.frontierRow - 1, PICO_WHITE);
+    this.canvasGrid.update(this.frontierCol, this.frontierRow + 1, PICO_WHITE);
+
+    // Randomly choose two diagonal corners for the petals.
+    // Prooooobably a more elegant way to do this but :shruggie_emoji:
+    const options = [
+      { colDelta: -1, rowDelta: -1 },
+      { colDelta: -1, rowDelta: 1 },
+      { colDelta: 1, rowDelta: -1 },
+      { colDelta: 1, rowDelta: 1 }
+    ];
+    const petalIndex1 = Math.floor(Math.random() * options.length);
+    const petal1 = options.splice(petalIndex1, 1)[0];
+    const petalIndex2 = Math.floor(Math.random() * options.length);
+    const petal2 = options.splice(petalIndex2, 1)[0];
+
+    this.canvasGrid.update(this.frontierCol + petal1.colDelta, this.frontierRow + petal1.rowDelta, GREEN);
+    this.canvasGrid.update(this.frontierCol + petal2.colDelta, this.frontierRow + petal2.rowDelta, GREEN);
+  }
+
+  canBloom() {
+    // Check to see if there's space all around the edge
+    for (let xDelta = -1; xDelta <= 1; xDelta++) {
+      for (let yDelta = -1; yDelta <= -1; yDelta++) {
+
+        const potential = {
+          col: this.frontierCol + xDelta,
+          row: this.frontierRow + yDelta
+        };
+        if (!this.canvasGrid.isInBounds(potential.col, potential.row)) {
+          return false;
+        }
+      }
+    }
+    return true;
+  }
+
+
   grow() {
     if (this.isGrown) {
       return;
     }
 
     this.totalSteps++;
+    if (this.totalSteps > 10) {
+      this.bloom();
+    }
 
     let spaces = this.getValidFrontierNeighbors();
     spaces = this.filterByConstraints(spaces);
@@ -147,6 +200,10 @@ class Stem {
           col: this.frontierCol + xDelta,
           row: this.frontierRow + yDelta
         };
+
+        if (!this.canvasGrid.isInBounds(potential.col, potential.row)) {
+          continue;
+        }
         if (this.canvasGrid.isOccupied(potential.col, potential.row)) {
           continue;
         }

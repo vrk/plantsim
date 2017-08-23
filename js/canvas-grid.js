@@ -9,13 +9,17 @@ class CanvasGrid {
     this.initializePixels();
   }
 
-  isOccupied(col, row) {
+  isInBounds(col, row) {
     if (col < 0 || col >= PIXELS_WIDE) {
-      return true;
+      return false;
     }
     if (row < 0 || row >= PIXELS_WIDE) {
-      return true;
+      return false;
     }
+    return true;
+  }
+
+  isOccupied(col, row) {
     return this.pixelData[col][row] !== null;
   }
 

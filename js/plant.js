@@ -15,7 +15,7 @@ class Plant {
   }
 
   update() {
-    this.canvasGrid.update(this.seedCol, this.seedRow, YELLOW);
+    this.canvasGrid.update(this.seedCol, this.seedRow, SEED_YELLOW);
   }
 
   updateNextSquare() {

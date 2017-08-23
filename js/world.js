@@ -29,4 +29,15 @@ class World {
     }
     this.draw();
   }
+
+  debugStep(n = 1) {
+    if (!this.plant) {
+      return;
+    }
+    
+    for (let i = 1; i <= n; i++) {
+      this.plant.updateNextSquare();
+      this.draw();
+    }
+  }
 }
