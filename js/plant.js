@@ -51,4 +51,15 @@ class Plant {
   onNewRightMiddleStem(rightMiddleStem) {
     this.rightMiddleStem = rightMiddleStem;
   }
+
+  bloom() {
+    if (this.leftStem) {
+      this.leftStem.bloom();
+      this.rightStem.bloom();
+      if (this.leftMiddleStem) {
+        this.leftMiddleStem.bloom();
+        this.rightMiddleStem.bloom();
+      }
+    }
+  }
 }

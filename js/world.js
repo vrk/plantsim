@@ -34,10 +34,18 @@ class World {
     if (!this.plant) {
       return;
     }
-    
+
     for (let i = 1; i <= n; i++) {
       this.plant.updateNextSquare();
       this.draw();
     }
+  }
+
+  bloom() {
+    if (!this.plant) {
+      return;
+    }
+    this.plant.bloom();
+    this.draw();
   }
 }
