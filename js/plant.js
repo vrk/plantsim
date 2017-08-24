@@ -33,6 +33,7 @@ class Plant {
       this.rightStem.setConstraints(LEAN_RIGHT);
     } else {
       this.leftStem.grow();
+      console.log(this.leftStem.frontier.getValidFrontierNeighbors());
       this.rightStem.grow();
 
       if (this.leftMiddleStem) {
