@@ -16,3 +16,14 @@ const LEAN_LEFT = Symbol('stem leans left');
 const LEAN_RIGHT = Symbol('stem leans right');
 const LEAN_LEFT_MIDDLE = Symbol('stem leans left and up');
 const LEAN_RIGHT_MIDDLE = Symbol('stem leans right and up');
+
+
+// Indexces into the PlantNodes array
+const TOP_LEFT = 0;
+const TOP_MIDDLE = 1;
+const TOP_RIGHT = 2;
+const MIDDLE_LEFT = 3;
+const MIDDLE_RIGHT = 4;
+const BOTTOM_LEFT = 5;
+const BOTTOM_MIDDLE = 6;
+const BOTTOM_RIGHT = 7;
