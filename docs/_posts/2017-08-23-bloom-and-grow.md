@@ -58,5 +58,6 @@ But it's pretty fun!
 ### TODOs for next time
 
 - Add some decorative leaves and stumps
+- Add some roots
 - Grow the flowers into strawberries
 - For Friday (probably): Fiddle with cosmetic improvements, such as guiding the shape of each stem to dip then grow upward
