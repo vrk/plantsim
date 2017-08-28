@@ -21,8 +21,8 @@ class PlantNode {
 
   // Returns a new random PlantNode that is connected to the current node.
   // Returns null if no new PlantNode could be grown.
-  growNewNode() {
-    const spaces = this.getValidFrontierNeighbors();
+  growNewNode(opt_filterFunction) {
+    let spaces = this.getValidFrontierNeighbors();
     if (spaces.length === 0) {
       return null;
     }
@@ -44,6 +44,7 @@ class PlantNode {
     return newNode;
   }
 
+  // Debug method
   drawFrontierNodes() {
     counter++;
     const spaces = this.getValidFrontierNeighbors();
@@ -85,7 +86,6 @@ class PlantNode {
     }
   }
 
-
   getRowColDeltaFromIndex(nodeIndex) {
     let colDelta = 0;
     // Handle col position
@@ -118,6 +118,28 @@ class PlantNode {
     }
 
     return { colDelta, rowDelta };
+  }
+
+  // Returns the next node in the stem, null if there is none.
+  // - If the stem forks, chooses randomly between the two nodes.
+  getNextNode() {
+    const parent = this.neighbors[this.parentIndex];
+    const validNeighbors =
+        this.neighbors.filter(n => n !== null && n !== parent);
+    if (validNeighbors.length === 0) {
+      return null;
+    }
+    const index = Math.floor(Math.random() * validNeighbors.length);
+    return validNeighbors[index];
+  }
+
+  // Returns the next node in the stem, null if there is none.
+  // - If the stem forks, chooses randomly between the two nodes.
+  getParent() {
+    if (!this.parentIndex) {
+      return null;
+    }
+    return this.neighbors[this.parentIndex];
   }
 
   getValidFrontierNeighbors() {
@@ -160,6 +182,10 @@ class PlantNode {
       // Ignore where you came from.
       if (neighborCol === parentCol && neighborRow === parentRow) {
         continue;
+      }
+
+      if (!this.canvasGrid.isInBounds(neighborCol, neighborRow)) {
+        return false;
       }
 
       if (this.canvasGrid.isOccupied(neighborCol, neighborRow)) {

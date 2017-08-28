@@ -12,6 +12,9 @@ class Plant {
 
     this.onNewLeftMiddleStem = this.onNewLeftMiddleStem.bind(this);
     this.onNewRightMiddleStem = this.onNewRightMiddleStem.bind(this);
+
+    this.leftStems = [];
+    this.rightStems = [];
   }
 
   update() {
@@ -33,24 +36,23 @@ class Plant {
       this.rightStem.setConstraints(LEAN_RIGHT);
     } else {
       this.leftStem.grow();
-      console.log(this.leftStem.frontier.getValidFrontierNeighbors());
       this.rightStem.grow();
 
-      if (this.leftMiddleStem) {
-        this.leftMiddleStem.grow();
+      for (const stem of this.leftStems) {
+        stem.grow();
       }
-      if (this.rightMiddleStem) {
-        this.rightMiddleStem.grow();
+      for (const stem of this.rightStems) {
+        stem.grow();
       }
     }
   }
 
   onNewLeftMiddleStem(leftMiddleStem) {
-    this.leftMiddleStem = leftMiddleStem;
+    this.leftStems.push(leftMiddleStem);
   }
 
   onNewRightMiddleStem(rightMiddleStem) {
-    this.rightMiddleStem = rightMiddleStem;
+    this.rightStems.push(rightMiddleStem);
   }
 
   bloom() {

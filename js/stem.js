@@ -79,16 +79,11 @@ class Stem {
     return true;
   }
 
-
   grow() {
     if (this.isGrown) {
       return;
     }
-    //
-    // this.totalSteps++;
-    // if (this.totalSteps > 10) {
-    //   this.bloom();
-    // }
+    this.totalSteps++;
 
     const nextNode = this.frontier.growNewNode();
     if (nextNode) {
@@ -96,30 +91,31 @@ class Stem {
     } else {
       this.isGrown = true;
     }
-    // if (!this.hasSprouted) {
-    //   // Save potential sprout point
-    //   if (!this.sproutCol) {
-    //     this.sproutCol = this.frontierCol;
-    //     this.sproutRow = this.frontierRow;
-    //   } else {
-    //     // Save the highest point we've seen.
-    //     if (this.frontierRow < this.sproutRow) {
-    //       this.sproutCol = this.frontierCol;
-    //       this.sproutRow = this.frontierRow;
-    //     }
-    //   }
-    //
-    //   if (this.totalSteps > 4 && this.onNewStems) {
-    //     this.hasSprouted = true;
-    //     const newStem = new Stem(this.sproutCol, this.sproutRow, this.canvasGrid);
-    //     if (this.direction === LEAN_LEFT) {
-    //       newStem.setConstraints(LEAN_LEFT_MIDDLE, this.initialCol + 1);
-    //     } else {
-    //       console.assert(this.direction === LEAN_RIGHT);
-    //       newStem.setConstraints(LEAN_RIGHT_MIDDLE, this.initialCol - 1);
-    //     }
-    //     this.onNewStems(newStem);
-    //   }
-    // }
+
+    if (this.totalSteps % 3 === 0) {
+      this.sproutNewStem();
+    }
+  }
+
+  sproutNewStem() {
+    console.log('new stem!');
+    let node = this.frontier;
+    node = node.getParent();
+    while (node) {
+      if (node.getValidFrontierNeighbors().length > 0) {
+        break;
+      }
+      node = node.getParent();
+    }
+    if (node) {
+      const newNode = node.growNewNode();
+      if (newNode) {
+        const newStem =
+                new Stem(newNode.col, newNode.row, this.canvasGrid, node);
+        console.log('new node!');
+        newStem.setOnNewStemCallback(this.onNewStems);
+        this.onNewStems(newStem);
+      }
+    }
   }
 }
