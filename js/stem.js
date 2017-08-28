@@ -91,10 +91,6 @@ class Stem {
     } else {
       this.isGrown = true;
     }
-
-    if (this.totalSteps % 3 === 0) {
-      this.sproutNewStem();
-    }
   }
 
   sproutNewStem() {

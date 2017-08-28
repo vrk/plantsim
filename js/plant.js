@@ -15,6 +15,7 @@ class Plant {
 
     this.leftStems = [];
     this.rightStems = [];
+    this.totalSteps = 0;
   }
 
   update() {
@@ -35,16 +36,40 @@ class Plant {
       this.rightStem.setOnNewStemCallback(this.onNewRightMiddleStem);
       this.rightStem.setConstraints(LEAN_RIGHT);
     } else {
-      this.leftStem.grow();
-      this.rightStem.grow();
-
-      for (const stem of this.leftStems) {
+      this.totalSteps++;
+      const activeLeftStems = this.getActiveLeftStems();
+      const activeRightStems = this.getActiveRightStems();
+      for (const stem of [...activeLeftStems, ...activeRightStems]) {
         stem.grow();
       }
-      for (const stem of this.rightStems) {
-        stem.grow();
+      if (activeLeftStems.length < 3) {
+        const options = [...this.leftStems, this.leftStem];
+        const chosen = Math.floor(Math.random() * options.length);
+        options[chosen].sproutNewStem();
+      }
+      if (activeRightStems.length < 3) {
+        const options = [...this.rightStems, this.rightStem];
+        const chosen = Math.floor(Math.random() * options.length);
+        options[chosen].sproutNewStem();
       }
     }
+  }
+
+  getAllStems() {
+    const allStems = [];
+    allStems.push(this.leftStem);
+    allStems.push(this.rightStem);
+    allStems.push(...this.leftStems);
+    allStems.push(...this.rightStems);
+    return allStems;
+  }
+
+  getActiveLeftStems() {
+    return [...this.leftStems, this.leftStem].filter(stem => !stem.isGrown);
+  }
+
+  getActiveRightStems() {
+    return [...this.rightStems, this.rightStem].filter(stem => !stem.isGrown);
   }
 
   onNewLeftMiddleStem(leftMiddleStem) {
