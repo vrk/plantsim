@@ -38,3 +38,60 @@ const ALL_NODE_INDICES = [
   BOTTOM_MIDDLE,
   BOTTOM_RIGHT
 ];
+
+const TRAVEL_UP = 0;
+const TRAVEL_RIGHT = 1;
+const TRAVEL_DOWN = 2;
+const TRAVEL_LEFT = 3;
+
+
+const STEM_COLORS = [
+  {
+    primary: DARK_GREEN,
+    secondary: GREEN
+  },
+  {
+    primary: '#7bacec',
+    secondary: '#c6ebff'
+  },
+  {
+    primary: '#de669c',
+    secondary: '#f49bb3'
+  },
+  {
+    primary: '#ffcb37',
+    secondary: '#f0881f'
+  },
+  {
+    primary: '#b6957c',
+    secondary: '#d8bc99'
+  },
+  {
+    primary: '#905860',
+    secondary: '#d2c4cb'
+  },
+  {
+    primary: GREEN,
+    secondary: DARK_GREEN
+  },
+  {
+    primary: '#c6ebff',
+    secondary: '#7bacec'
+  },
+  {
+    primary: '#f49bb3',
+    secondary: '#de669c'
+  },
+  {
+    primary: '#f0881f',
+    secondary: '#ffcb37'
+  },
+  {
+    primary: '#d8bc99',
+    secondary: '#b6957c'
+  },
+  {
+    primary: '#d2c4cb',
+    secondary: '#905860'
+  }
+];

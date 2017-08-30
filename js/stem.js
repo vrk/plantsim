@@ -1,6 +1,11 @@
+let colorIndex = 0;
+
 class Stem {
   constructor(col, row, canvasGrid, parent) {
     this.initialNode = new PlantNode(col, row, canvasGrid);
+    this.initialNode.setColorIndex(colorIndex);
+    this.myColor = colorIndex;
+    colorIndex = (colorIndex + 1) % STEM_COLORS.length;
     this.frontier = this.initialNode;
     this.canvasGrid = canvasGrid;
 
@@ -46,7 +51,7 @@ class Stem {
     this.canvasGrid.update(this.frontierCol, this.frontierRow + 1, PICO_WHITE);
 
     // Randomly choose two diagonal corners for the petals.
-    // Prooooobably a more elegant way to do this but :shruggie_emoji:
+    // Prooooobably a more elegant way to do this but :shruggies:
     const options = [
       { colDelta: -1, rowDelta: -1 },
       { colDelta: -1, rowDelta: 1 },
@@ -88,9 +93,31 @@ class Stem {
     const nextNode = this.frontier.growNewNode();
     if (nextNode) {
       this.frontier = nextNode;
+      let trajectory = 'unknown';
+      switch(this.frontier.getTrajectory()) {
+        case TRAVEL_UP:
+          trajectory = 'up';
+          break;
+        case TRAVEL_RIGHT:
+          trajectory = 'right';
+          break;
+        case TRAVEL_DOWN:
+          trajectory = 'down';
+          break;
+        case TRAVEL_LEFT:
+          trajectory = 'left';
+          break;
+      }
+      this.printDebug(`trajectory: ${trajectory}`);
     } else {
       this.isGrown = true;
     }
+  }
+
+  printDebug(message) {
+    const colorChoice = STEM_COLORS[this.myColor];
+    const highlightStyle = `color: ${colorChoice.secondary}; background-color: ${colorChoice.primary};`;
+    console.log('%c' + message, highlightStyle);
   }
 
   sproutNewStem() {
@@ -108,7 +135,6 @@ class Stem {
       if (newNode) {
         const newStem =
                 new Stem(newNode.col, newNode.row, this.canvasGrid, node);
-        console.log('new node!');
         newStem.setOnNewStemCallback(this.onNewStems);
         this.onNewStems(newStem);
       }

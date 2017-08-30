@@ -1,4 +1,3 @@
-let counter = 0;
 class PlantNode {
   constructor(col, row, canvasGrid, parent, parentIndex) {
     // PlantNode[] neighbors
@@ -19,6 +18,10 @@ class PlantNode {
     this.canvasGrid = canvasGrid;
   }
 
+  setColorIndex(index) {
+    this.colorIndex = index;
+  }
+
   // Returns a new random PlantNode that is connected to the current node.
   // Returns null if no new PlantNode could be grown.
   growNewNode(opt_filterFunction) {
@@ -32,16 +35,69 @@ class PlantNode {
     const newCol = this.col + deltas.colDelta;
     const newRow = this.row + deltas.rowDelta;
 
-    this.canvasGrid.update(this.col, this.row, DARK_GREEN);
-    this.canvasGrid.update(newCol, newRow, GREEN);
+    const realColor = this.colorIndex !== undefined ? STEM_COLORS[this.colorIndex].primary : DARK_GREEN;
+    const frontColor = this.colorIndex !== undefined ? STEM_COLORS[this.colorIndex].secondary : GREEN;
+    this.canvasGrid.update(this.col, this.row, realColor);
+    this.canvasGrid.update(newCol, newRow, frontColor);
 
     const newNodeParentIndex = this.getParentIndex(index);
     const newNode = new PlantNode(
         newCol, newRow, this.canvasGrid, this, newNodeParentIndex);
+    newNode.setColorIndex(this.colorIndex);
     this.neighbors[index] = newNode;
     //newNode.drawFrontierNodes();
 
     return newNode;
+  }
+
+  printDebug(message) {
+    const colorChoice = STEM_COLORS[this.colorIndex];
+    const highlightStyle = `color: ${colorChoice.secondary}; background-color: ${colorChoice.primary};`;
+    console.log('%c' + message, highlightStyle);
+  }
+
+  getObivousTrajectory(index) {
+    if (index === null) {
+      return null;
+    }
+
+    // ***
+    // *.*
+    // ***
+    switch(index) {
+      case TOP_MIDDLE:
+        return TRAVEL_DOWN;
+      case BOTTOM_MIDDLE:
+        return TRAVEL_UP;
+      case MIDDLE_LEFT:
+        return TRAVEL_RIGHT;
+      case MIDDLE_RIGHT:
+        return TRAVEL_LEFT;
+      default:
+        return null;
+    }
+
+  }
+
+  getTrajectory() {
+    this.printDebug('here!');
+    debugger;
+    if (this.parentIndex === null) {
+      return TRAVEL_UP;
+    }
+
+    const obviousDirection = this.getObivousTrajectory(this.parentIndex);
+    if (obviousDirection !== null) {
+      return obviousDirection;
+    }
+
+    const parentParentIndex = this.neighbors[this.parentIndex].parentIndex;
+    const obviousParentDirection = this.getObivousTrajectory(parentParentIndex);
+    if (obviousParentDirection !== null) {
+      return obviousParentDirection;
+    }
+
+    return TRAVEL_UP;
   }
 
   // Debug method
