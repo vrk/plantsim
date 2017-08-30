@@ -30,8 +30,9 @@ class PlantNode {
       return null;
     }
 
-    const index = Math.floor(Math.random() * spaces.length);
-    const deltas = this.getRowColDeltaFromIndex(spaces[index]);
+    const indexIndex = Math.floor(Math.random() * spaces.length);
+    const positionIndex = spaces[indexIndex];
+    const deltas = this.getRowColDeltaFromIndex(positionIndex);
     const newCol = this.col + deltas.colDelta;
     const newRow = this.row + deltas.rowDelta;
 
@@ -39,12 +40,11 @@ class PlantNode {
     const frontColor = this.colorIndex !== undefined ? STEM_COLORS[this.colorIndex].secondary : GREEN;
     this.canvasGrid.update(this.col, this.row, realColor);
     this.canvasGrid.update(newCol, newRow, frontColor);
-
-    const newNodeParentIndex = this.getParentIndex(index);
+    const newNodeParentIndex = this.getParentIndex(positionIndex);
     const newNode = new PlantNode(
         newCol, newRow, this.canvasGrid, this, newNodeParentIndex);
     newNode.setColorIndex(this.colorIndex);
-    this.neighbors[index] = newNode;
+    this.neighbors[positionIndex] = newNode;
     //newNode.drawFrontierNodes();
 
     return newNode;
@@ -80,8 +80,6 @@ class PlantNode {
   }
 
   getTrajectory() {
-    this.printDebug('here!');
-    debugger;
     if (this.parentIndex === null) {
       return TRAVEL_UP;
     }
@@ -114,6 +112,8 @@ class PlantNode {
     }
   }
 
+  // |nodeIndex| is the location of the newly made node, and we're trying
+  // to determine what the parent index should be then.
   getParentIndex(nodeIndex) {
 
     //  * * *
