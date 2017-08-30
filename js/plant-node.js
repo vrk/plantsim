@@ -45,7 +45,6 @@ class PlantNode {
         newCol, newRow, this.canvasGrid, this, newNodeParentIndex);
     newNode.setColorIndex(this.colorIndex);
     this.neighbors[positionIndex] = newNode;
-    //newNode.drawFrontierNodes();
 
     return newNode;
   }
@@ -67,12 +66,23 @@ class PlantNode {
     switch(index) {
       case TOP_MIDDLE:
         return TRAVEL_DOWN;
+      case TOP_LEFT:
+        return TRAVEL_RIGHT_DOWN;
+      case TOP_RIGHT:
+        return TRAVEL_LEFT_DOWN;
+
       case BOTTOM_MIDDLE:
         return TRAVEL_UP;
+      case BOTTOM_LEFT:
+        return TRAVEL_RIGHT_UP;
+      case BOTTOM_RIGHT:
+        return TRAVEL_LEFT_UP;
+
       case MIDDLE_LEFT:
         return TRAVEL_RIGHT;
       case MIDDLE_RIGHT:
         return TRAVEL_LEFT;
+
       default:
         return null;
     }
@@ -84,32 +94,54 @@ class PlantNode {
       return TRAVEL_UP;
     }
 
-    const obviousDirection = this.getObivousTrajectory(this.parentIndex);
-    if (obviousDirection !== null) {
-      return obviousDirection;
+    const firstDirection = this.getObivousTrajectory(this.parentIndex);
+    if (firstDirection === TRAVEL_UP || firstDirection === TRAVEL_RIGHT ||
+        firstDirection === TRAVEL_LEFT || firstDirection === TRAVEL_DOWN) {
+      return firstDirection;
     }
 
     const parentParentIndex = this.neighbors[this.parentIndex].parentIndex;
-    const obviousParentDirection = this.getObivousTrajectory(parentParentIndex);
-    if (obviousParentDirection !== null) {
-      return obviousParentDirection;
+    const secondDirection = this.getObivousTrajectory(parentParentIndex);
+
+    if (secondDirection === TRAVEL_UP || secondDirection === TRAVEL_RIGHT ||
+        secondDirection === TRAVEL_LEFT || secondDirection === TRAVEL_DOWN) {
+      return secondDirection;
+    }
+
+    if (secondDirection === TRAVEL_LEFT_UP) {
+      if (firstDirection === TRAVEL_LEFT_UP || firstDirection === TRAVEL_RIGHT_UP) {
+        return TRAVEL_UP;
+      }
+      if (firstDirection === TRAVEL_LEFT_DOWN) {
+        return TRAVEL_LEFT;
+      }
+    }
+    if (secondDirection === TRAVEL_LEFT_DOWN) {
+      if (firstDirection === TRAVEL_LEFT_DOWN || firstDirection === TRAVEL_RIGHT_DOWN) {
+        return TRAVEL_DOWN;
+      }
+      if (firstDirection === TRAVEL_LEFT_UP) {
+        return TRAVEL_LEFT;
+      }
+    }
+    if (secondDirection === TRAVEL_RIGHT_UP) {
+      if (firstDirection === TRAVEL_RIGHT_UP || firstDirection === TRAVEL_LEFT_UP) {
+        return TRAVEL_UP;
+      }
+      if (firstDirection === TRAVEL_RIGHT_DOWN) {
+        return TRAVEL_RIGHT;
+      }
+    }
+    if (secondDirection === TRAVEL_RIGHT_DOWN) {
+      if (firstDirection === TRAVEL_RIGHT_DOWN || firstDirection === TRAVEL_LEFT_DOWN) {
+        return TRAVEL_DOWN;
+      }
+      if (firstDirection === TRAVEL_RIGHT_UP) {
+        return TRAVEL_RIGHT;
+      }
     }
 
     return TRAVEL_UP;
-  }
-
-  // Debug method
-  drawFrontierNodes() {
-    counter++;
-    const spaces = this.getValidFrontierNeighbors();
-    const color = counter % 2 === 1 ? '#FF77A8' : '#FF004D';
-    for (const space of spaces) {
-      const deltas = this.getRowColDeltaFromIndex(space);
-
-      const neighborCol = this.col + deltas.colDelta;
-      const neighborRow = this.row + deltas.rowDelta;
-      this.canvasGrid.drawSquare(neighborCol, neighborRow, color);
-    }
   }
 
   // |nodeIndex| is the location of the newly made node, and we're trying

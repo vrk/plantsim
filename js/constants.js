@@ -43,7 +43,10 @@ const TRAVEL_UP = 0;
 const TRAVEL_RIGHT = 1;
 const TRAVEL_DOWN = 2;
 const TRAVEL_LEFT = 3;
-
+const TRAVEL_LEFT_UP = 4;
+const TRAVEL_LEFT_DOWN = 5;
+const TRAVEL_RIGHT_UP = 6;
+const TRAVEL_RIGHT_DOWN = 7;
 
 const STEM_COLORS = [
   {
