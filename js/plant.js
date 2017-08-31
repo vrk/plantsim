@@ -33,10 +33,7 @@ class Plant {
       this.rightStem = this.stalk.getRightStem();
 
       this.leftStem.setOnNewStemCallback(this.onNewLeftMiddleStem);
-      this.leftStem.setConstraints(LEAN_LEFT);
-
       this.rightStem.setOnNewStemCallback(this.onNewRightMiddleStem);
-      this.rightStem.setConstraints(LEAN_RIGHT);
     } else {
       this.totalSteps++;
       const activeLeftStems = this.getActiveLeftStems();
@@ -58,6 +55,9 @@ class Plant {
       if (this.totalSteps > BLOOM_STEPS && this.totalSteps % 3 === 0) {
         this.bloom();
       }
+      for (const bloom of this.bloomed) {
+        bloom.grow();
+      }
     }
   }
 
@@ -71,11 +71,11 @@ class Plant {
   }
 
   getActiveLeftStems() {
-    return [...this.leftStems, this.leftStem].filter(stem => !stem.isGrown);
+    return [...this.leftStems, this.leftStem].filter(stem => !stem.isGrown && !stem.hasStrawberry);
   }
 
   getActiveRightStems() {
-    return [...this.rightStems, this.rightStem].filter(stem => !stem.isGrown);
+    return [...this.rightStems, this.rightStem].filter(stem => !stem.isGrown && !stem.hasStrawberry);
   }
 
   onNewLeftMiddleStem(leftMiddleStem) {

@@ -14,6 +14,8 @@ class Stem {
     this.hasReachedEdge = false;
     this.direction = null;
     this.hasSprouted = false;
+
+    this.strawberry = null;
   }
 
   setConstraints(nudge, opt_colBound) {
@@ -40,10 +42,9 @@ class Stem {
   }
 
   bloom() {
-
-    this.isGrown = true;
-
-    this.frontier.bloom();
+    console.assert(this.frontier.canBloom());
+    this.strawberry = new Strawberry(this.frontier, this.canvasGrid);
+    this.hasStrawberry = true;
   }
 
   grow() {
@@ -52,27 +53,31 @@ class Stem {
     }
     this.totalSteps++;
 
-    const nextNode = this.frontier.growNewNode();
-    if (nextNode) {
-      this.frontier = nextNode;
-      let trajectory = 'unknown';
-      switch(this.frontier.getTrajectory()) {
-        case TRAVEL_UP:
-          trajectory = 'up';
-          break;
-        case TRAVEL_RIGHT:
-          trajectory = 'right';
-          break;
-        case TRAVEL_DOWN:
-          trajectory = 'down';
-          break;
-        case TRAVEL_LEFT:
-          trajectory = 'left';
-          break;
-      }
-      this.printDebug(`trajectory: ${trajectory}`);
+    if (this.strawberry) {
+      this.strawberry.grow();
     } else {
-      this.isGrown = true;
+      const nextNode = this.frontier.growNewNode();
+      if (nextNode) {
+        this.frontier = nextNode;
+        let trajectory = 'unknown';
+        switch(this.frontier.getTrajectory()) {
+          case TRAVEL_UP:
+            trajectory = 'up';
+            break;
+          case TRAVEL_RIGHT:
+            trajectory = 'right';
+            break;
+          case TRAVEL_DOWN:
+            trajectory = 'down';
+            break;
+          case TRAVEL_LEFT:
+            trajectory = 'left';
+            break;
+        }
+        this.printDebug(`trajectory: ${trajectory}`);
+      } else {
+        this.isGrown = true;
+      }
     }
   }
 
