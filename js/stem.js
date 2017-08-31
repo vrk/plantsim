@@ -35,10 +35,11 @@ class Stem {
     this.onNewStems = onNewStems;
   }
 
+  canBloom() {
+    return this.frontier.canBloom();
+  }
+
   bloom() {
-    if (!this.frontier.canBloom()) {
-      return;
-    }
 
     this.isGrown = true;
 

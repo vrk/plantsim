@@ -51,6 +51,10 @@ const TRAVEL_LEFT_DOWN = 5;
 const TRAVEL_RIGHT_UP = 6;
 const TRAVEL_RIGHT_DOWN = 7;
 
+const MAX_STRAWBS = 4;
+
+const BLOOM_STEPS = 10;
+
 const STEM_COLORS = [
   {
     primary: DARK_GREEN,

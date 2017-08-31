@@ -54,6 +54,10 @@ class Plant {
         const chosen = Math.floor(Math.random() * options.length);
         options[chosen].sproutNewStem();
       }
+
+      if (this.totalSteps > BLOOM_STEPS && this.totalSteps % 3 === 0) {
+        this.bloom();
+      }
     }
   }
 
@@ -85,8 +89,13 @@ class Plant {
   bloom() {
     const activeLeftStems = this.getActiveLeftStems();
     const activeRightStems = this.getActiveRightStems();
-    for (const stem of [...activeLeftStems, ...activeRightStems]) {
+    const allActive = [...activeLeftStems, ...activeRightStems];
+    const bloomable = allActive.filter(s => s.canBloom());
+    if (bloomable.length > 0) {
+      const index = Math.floor(Math.random() * bloomable.length);
+      const stem = bloomable[index];
       stem.bloom();
+      this.bloomed.push(stem);
     }
   }
 }

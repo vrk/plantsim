@@ -186,7 +186,7 @@ class PlantNode {
   }
 
   getTrajectory() {
-    if (this.parentIndex === null) {
+    if (this.parentIndex !== 0 && !this.parentIndex) {
       return TRAVEL_UP;
     }
 
