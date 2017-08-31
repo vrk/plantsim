@@ -90,7 +90,7 @@ class PlantNode {
     }
   }
 
-  canBloom() {
+  canBloom(width, height) {
     const trajectory = this.getTrajectory();
     let startCol;
     let endCol;
@@ -98,25 +98,25 @@ class PlantNode {
     let endRow;
     if (trajectory === TRAVEL_UP) {
       // Check the N x N block above the current space.
-      startCol = this.col - Math.floor(STRAWBERRY_WIDTH / 2);
-      endCol = this.col + Math.floor(STRAWBERRY_WIDTH / 2); // inclusive
-      startRow = this.row - STRAWBERRY_HEIGHT;
+      startCol = this.col - Math.floor(width / 2);
+      endCol = this.col + Math.floor(width / 2); // inclusive
+      startRow = this.row - height;
       endRow = this.row - 1;  // inclusive
     } else if (trajectory === TRAVEL_LEFT) {
-      startCol = this.col - STRAWBERRY_WIDTH;
+      startCol = this.col - width;
       endCol = this.col - 1; // inclusive
-      startRow = this.row - Math.floor(STRAWBERRY_HEIGHT / 2);
-      endRow = this.row + Math.floor(STRAWBERRY_HEIGHT / 2);  // inclusive
+      startRow = this.row - Math.floor(height / 2);
+      endRow = this.row + Math.floor(height / 2);  // inclusive
     } else if (trajectory === TRAVEL_DOWN) {
-      startCol = this.col - Math.floor(STRAWBERRY_WIDTH / 2);
-      endCol = this.col + Math.floor(STRAWBERRY_WIDTH / 2); // inclusive
+      startCol = this.col - Math.floor(width / 2);
+      endCol = this.col + Math.floor(width / 2); // inclusive
       startRow = this.row + 1;
-      endRow = this.row + STRAWBERRY_HEIGHT;  // inclusive
+      endRow = this.row + height;  // inclusive
     } else if (trajectory === TRAVEL_RIGHT) {
       startCol = this.col + 1;
-      endCol = this.col + STRAWBERRY_HEIGHT; // inclusive
-      startRow = this.row - Math.floor(STRAWBERRY_HEIGHT / 2);
-      endRow = this.row + Math.floor(STRAWBERRY_HEIGHT / 2);  // inclusive
+      endCol = this.col + height; // inclusive
+      startRow = this.row - Math.floor(height / 2);
+      endRow = this.row + Math.floor(height / 2);  // inclusive
     }
     return this.hasSpaceInRectangle(startCol, endCol, startRow, endRow);
   }
@@ -132,11 +132,41 @@ class PlantNode {
     return true;
   }
 
-  drawRect(startCol, endCol, startRow, endRow) {
-    const color = STEM_COLORS[this.colorIndex].primary;
+  reserveSpaceInRectangle(width, height) {
+    const trajectory = this.getTrajectory();
+    let startCol;
+    let endCol;
+    let startRow;
+    let endRow;
+    if (trajectory === TRAVEL_UP) {
+      // Check the N x N block above the current space.
+      startCol = this.col - Math.floor(width / 2);
+      endCol = this.col + Math.floor(width / 2); // inclusive
+      startRow = this.row - height;
+      endRow = this.row - 1;  // inclusive
+    } else if (trajectory === TRAVEL_LEFT) {
+      startCol = this.col - width;
+      endCol = this.col - 1; // inclusive
+      startRow = this.row - Math.floor(height / 2);
+      endRow = this.row + Math.floor(height / 2);  // inclusive
+    } else if (trajectory === TRAVEL_DOWN) {
+      startCol = this.col - Math.floor(width / 2);
+      endCol = this.col + Math.floor(width / 2); // inclusive
+      startRow = this.row + 1;
+      endRow = this.row + height;  // inclusive
+    } else if (trajectory === TRAVEL_RIGHT) {
+      startCol = this.col + 1;
+      endCol = this.col + height; // inclusive
+      startRow = this.row - Math.floor(height / 2);
+      endRow = this.row + Math.floor(height / 2);  // inclusive
+    }
+    this.updateRect(startCol, endCol, startRow, endRow, 'black');
+  }
+
+  updateRect(startCol, endCol, startRow, endRow, color) {
     for (let c = startCol; c <= endCol; c++) {
       for (let r = startRow; r <= endRow; r++) {
-        this.canvasGrid.drawSquare(c, r, color);
+        this.canvasGrid.update(c, r, color);
       }
     }
   }

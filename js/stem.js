@@ -38,12 +38,18 @@ class Stem {
   }
 
   canBloom() {
-    return this.frontier.canBloom();
+    return this.frontier.canBloom(STRAWBERRY_WIDTH, STRAWBERRY_HEIGHT);
   }
 
   bloom() {
-    console.assert(this.frontier.canBloom());
-    this.strawberry = new Strawberry(this.frontier, this.canvasGrid);
+    console.assert(this.frontier.canBloom(STRAWBERRY_WIDTH, STRAWBERRY_HEIGHT));
+    console.assert(STRAWBERRY_WIDTH === STRAWBERRY_HEIGHT);
+    let size = STRAWBERRY_WIDTH;
+    if (this.frontier.canBloom(STRAWBERRY_WIDTH + 2, STRAWBERRY_HEIGHT + 2)) {
+      size += 2;
+    }
+    this.frontier.reserveSpaceInRectangle(size, size);
+    this.strawberry = new Strawberry(this.frontier, this.canvasGrid, size);
     this.hasStrawberry = true;
   }
 
