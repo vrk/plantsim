@@ -86,7 +86,58 @@ class PlantNode {
       default:
         return null;
     }
+  }
 
+  canBloom() {
+    const trajectory = this.getTrajectory();
+    let startCol;
+    let endCol;
+    let startRow;
+    let endRow;
+    if (trajectory === TRAVEL_UP) {
+      // Check the N x N block above the current space.
+      startCol = this.col - Math.floor(STRAWBERRY_WIDTH / 2);
+      endCol = this.col + Math.floor(STRAWBERRY_WIDTH / 2); // inclusive
+      startRow = this.row - STRAWBERRY_HEIGHT;
+      endRow = this.row - 1;  // inclusive
+    } else if (trajectory === TRAVEL_LEFT) {
+      // TODO(vrk): Finish these trajectories
+      startCol = this.col - STRAWBERRY_WIDTH;
+      endCol = this.col - 1; // inclusive
+      startRow = this.row - Math.floor(STRAWBERRY_HEIGHT / 2);
+      endRow = this.row + Math.floor(STRAWBERRY_HEIGHT / 2);  // inclusive
+    } else if (trajectory === TRAVEL_DOWN) {
+      startCol = this.col - Math.floor(STRAWBERRY_WIDTH / 2);
+      endCol = this.col + Math.floor(STRAWBERRY_WIDTH / 2); // inclusive
+      startRow = this.row + 1;
+      endRow = this.row + STRAWBERRY_HEIGHT;  // inclusive
+    } else if (trajectory === TRAVEL_RIGHT) {
+      startCol = this.col + 1;
+      endCol = this.col + STRAWBERRY_HEIGHT; // inclusive
+      startRow = this.row - Math.floor(STRAWBERRY_HEIGHT / 2);
+      endRow = this.row + Math.floor(STRAWBERRY_HEIGHT / 2);  // inclusive
+    }
+    return this.hasSpaceInRectangle(startCol, endCol, startRow, endRow);
+  }
+
+  hasSpaceInRectangle(startCol, endCol, startRow, endRow) {
+    for (let c = startCol; c <= endCol; c++) {
+      for (let r = startRow; r <= endRow; r++) {
+        if (!this.canvasGrid.isInBounds(c, r) || this.canvasGrid.isOccupied(c, r)) {
+          return false;
+        }
+      }
+    }
+    return true;
+  }
+
+  drawRect(startCol, endCol, startRow, endRow) {
+    const color = STEM_COLORS[this.colorIndex].primary;
+    for (let c = startCol; c <= endCol; c++) {
+      for (let r = startRow; r <= endRow; r++) {
+        this.canvasGrid.drawSquare(c, r, color);
+      }
+    }
   }
 
   getTrajectory() {

@@ -28,6 +28,9 @@ const BOTTOM_LEFT = 5;
 const BOTTOM_MIDDLE = 6;
 const BOTTOM_RIGHT = 7;
 
+const STRAWBERRY_HEIGHT = 5;
+const STRAWBERRY_WIDTH = 5;
+
 const ALL_NODE_INDICES = [
   TOP_LEFT,
   TOP_MIDDLE,

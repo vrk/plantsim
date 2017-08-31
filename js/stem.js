@@ -68,20 +68,7 @@ class Stem {
   }
 
   canBloom() {
-    // Check to see if there's space all around the edge
-    for (let xDelta = -1; xDelta <= 1; xDelta++) {
-      for (let yDelta = -1; yDelta <= -1; yDelta++) {
-
-        const potential = {
-          col: this.frontierCol + xDelta,
-          row: this.frontierRow + yDelta
-        };
-        if (!this.canvasGrid.isInBounds(potential.col, potential.row)) {
-          return false;
-        }
-      }
-    }
-    return true;
+    const trajectory = this.frontier.getTrajectory();
   }
 
   grow() {
@@ -109,6 +96,7 @@ class Stem {
           break;
       }
       this.printDebug(`trajectory: ${trajectory}`);
+      this.frontier.canBloom();
     } else {
       this.isGrown = true;
     }
