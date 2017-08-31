@@ -12,6 +12,8 @@ class Strawberry {
       this.drawStem();
     } else if (this.daysOld === 2) {
       this.drawFlower();
+    } else if (this.daysOld === 4) {
+      this.drawSmallStrawberry();
     }
     this.daysOld++;
   }
@@ -61,7 +63,36 @@ class Strawberry {
       this.canvasGrid.update(this.col + 2, this.row + 1, PICO_WHITE);
       this.canvasGrid.update(this.col + 3, this.row, PICO_WHITE);
     }
+  }
 
+  updateRect(startCol, endCol, startRow, endRow, color) {
+    for (let c = startCol; c <= endCol; c++) {
+      for (let r = startRow; r <= endRow; r++) {
+        this.canvasGrid.update(c, r, color);
+      }
+    }
+  }
+
+  drawSmallStrawberryBody() {
+    const trajectory = this.plantNode.getTrajectory();
+    if (trajectory === TRAVEL_UP) {
+      this.canvasGrid.update(this.col, this.row - 1, YOUNG_STRAWBERRY);
+      this.updateRect(this.col - 1, this.col + 1, this.row - 3, this.row - 2, YOUNG_STRAWBERRY);
+    } else if (trajectory === TRAVEL_LEFT) {
+      this.canvasGrid.update(this.col - 1, this.row, YOUNG_STRAWBERRY);
+      this.updateRect(this.col - 3, this.col - 2, this.row - 1, this.row + 1, YOUNG_STRAWBERRY);
+    } else if (trajectory === TRAVEL_DOWN) {
+      this.canvasGrid.update(this.col, this.row + 1, YOUNG_STRAWBERRY);
+      this.updateRect(this.col - 1, this.col + 1, this.row + 2, this.row + 3, YOUNG_STRAWBERRY);
+    } else if (trajectory === TRAVEL_RIGHT) {
+      this.canvasGrid.update(this.col + 1, this.row, YOUNG_STRAWBERRY);
+      this.updateRect(this.col + 2, this.col + 3, this.row - 1, this.row + 1, YOUNG_STRAWBERRY);
+    }
+  }
+
+  drawSmallStrawberry() {
+    this.canvasGrid.update(this.col, this.row, DARK_GREEN);
+    this.drawSmallStrawberryBody();
   }
 
 }

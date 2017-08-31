@@ -103,7 +103,6 @@ class PlantNode {
       startRow = this.row - STRAWBERRY_HEIGHT;
       endRow = this.row - 1;  // inclusive
     } else if (trajectory === TRAVEL_LEFT) {
-      // TODO(vrk): Finish these trajectories
       startCol = this.col - STRAWBERRY_WIDTH;
       endCol = this.col - 1; // inclusive
       startRow = this.row - Math.floor(STRAWBERRY_HEIGHT / 2);
