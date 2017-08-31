@@ -35,6 +35,10 @@ const BOTTOM_RIGHT = 7;
 const STRAWBERRY_HEIGHT = 5;
 const STRAWBERRY_WIDTH = 5;
 
+const SMALL_SIZE = 5;
+const MEDIUM_SIZE = 6;
+const LARGE_SIZE = 7;
+
 const ALL_NODE_INDICES = [
   TOP_LEFT,
   TOP_MIDDLE,

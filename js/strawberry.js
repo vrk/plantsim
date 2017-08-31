@@ -1,11 +1,11 @@
 class Strawberry {
-  constructor(plantNode, canvasGrid) {
+  constructor(plantNode, canvasGrid, size) {
     this.plantNode = plantNode;
     this.col = this.plantNode.col;
     this.row = this.plantNode.row;
     this.canvasGrid = canvasGrid;
+    this.size = size;
     this.daysOld = 0;
-
 
     // Decide on random decisions.
 
@@ -15,6 +15,12 @@ class Strawberry {
     this.possibleSkipIndex = Math.floor(Math.random() * 3);
     // Top of strawberry.
     this.topPosition = Math.floor(Math.random() * 3);
+    if (this.size !== SMALL_SIZE) {
+      this.topPosition = 1;
+    }
+
+    // Which side to lean on a MEDIUM_SIZE strawberry.
+    this.strawbSideOffset = Math.floor(Math.random() * 2) === 0 ? -2 : 2;
   }
 
   grow() {
@@ -22,12 +28,20 @@ class Strawberry {
       this.drawStem();
     } else if (this.daysOld === 2) {
       this.drawFlower();
-    } else if (this.daysOld === 5) {
+    } else if (this.daysOld === 7) {
       this.drawStrawberryStub();
-    } else if (this.daysOld === 10) {
+    } else if (this.daysOld === 9) {
       this.drawSmallStrawberry(YOUNG_STRAWBERRY, PICO_WHITE);
-    } else if (this.daysOld === 15) {
-      this.drawSmallStrawberry(RED_STRAWBERRY, PINK_STRAWBERRY, true);
+    } else if (this.daysOld === 12) {
+      if (this.size == SMALL_SIZE) {
+        this.drawSmallStrawberry(RED_STRAWBERRY, PINK_STRAWBERRY, true);
+      } else {
+        this.drawMediumStrawberryPartOne(YOUNG_STRAWBERRY, PICO_WHITE);
+      }
+    } else if (this.daysOld === 14 && this.size !== SMALL_SIZE) {
+      this.drawMediumStrawberryPartTwo(YOUNG_STRAWBERRY, PICO_WHITE);
+    } else if (this.daysOld === 16 && this.size !== SMALL_SIZE) {
+      this.drawMediumStrawberryPartTwo(RED_STRAWBERRY, PINK_STRAWBERRY);
     }
     this.daysOld++;
   }
@@ -157,21 +171,21 @@ class Strawberry {
   }
 
 
-  drawSmallStrawberryTopper(trajectory, color) {
+  drawSmallStrawberryTopper(trajectory, color, topPosition) {
     let col;
     let row;
     if (trajectory === TRAVEL_UP) {
-      col = this.col - 1 + this.topPosition;
+      col = this.col - 1 + topPosition;
       row = this.row - 4;
     } else if (trajectory === TRAVEL_LEFT) {
       col = this.col - 4;
-      row = this.row - 1 + this.topPosition;
+      row = this.row - 1 + topPosition;
     } else if (trajectory === TRAVEL_DOWN) {
-      col = this.col - 1 + this.topPosition;
+      col = this.col - 1 + topPosition;
       row = this.row + 4;
     } else if (trajectory === TRAVEL_RIGHT) {
       col = this.col + 4;
-      row = this.row - 1 + this.topPosition;
+      row = this.row - 1 + topPosition;
     }
     this.canvasGrid.update(col, row, color);
   }
@@ -225,8 +239,49 @@ class Strawberry {
     const trajectory = this.plantNode.getTrajectory();
     this.drawSmallStrawberryDots(trajectory, secondary);
     if (includeTopper) {
-      this.drawSmallStrawberryTopper(trajectory, primary);
+      this.drawSmallStrawberryTopper(trajectory, primary, this.topPosition);
     }
   }
+
+  drawMediumStrawberryPartOne(primary, secondary) {
+    this.drawSmallStrawberry(primary, secondary, true);
+
+    const trajectory = this.plantNode.getTrajectory();
+    if (trajectory === TRAVEL_UP) {
+      this.canvasGrid.update(this.col + this.strawbSideOffset, this.row - 2, GREEN);
+    } else if (trajectory === TRAVEL_LEFT) {
+      this.canvasGrid.update(this.col - 2, this.row + this.strawbSideOffset, GREEN);
+    } else if (trajectory === TRAVEL_DOWN) {
+      this.canvasGrid.update(this.col - this.strawbSideOffset, this.row + 2, GREEN);
+    } else if (trajectory === TRAVEL_RIGHT) {
+      this.canvasGrid.update(this.col + 2, this.row - this.strawbSideOffset, GREEN);
+    }
+  }
+
+  drawMediumStrawberryPartTwo(primary, secondary) {
+    this.drawMediumStrawberryPartOne(primary, secondary);
+
+    const trajectory = this.plantNode.getTrajectory();
+    const offset = this.strawbSideOffset === 2 ? 1 : -1;
+    if (trajectory === TRAVEL_UP) {
+      this.canvasGrid.update(this.col + this.strawbSideOffset, this.row - 3, primary);
+      this.drawSmallStrawberryTopper(trajectory, primary, this.topPosition + offset);
+    } else if (trajectory === TRAVEL_LEFT) {
+      this.canvasGrid.update(this.col - 3, this.row + this.strawbSideOffset, primary);
+      this.drawSmallStrawberryTopper(trajectory, primary, this.topPosition + offset);
+    } else if (trajectory === TRAVEL_DOWN) {
+      this.canvasGrid.update(this.col - this.strawbSideOffset, this.row + 3, primary);
+      this.drawSmallStrawberryTopper(trajectory, primary, this.topPosition - offset);
+    } else if (trajectory === TRAVEL_RIGHT) {
+      this.canvasGrid.update(this.col + 3, this.row - this.strawbSideOffset, primary);
+      this.drawSmallStrawberryTopper(trajectory, primary, this.topPosition - offset);
+    }
+
+
+    //   *
+    // ****
+    //
+  }
+
 
 }
