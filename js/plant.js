@@ -42,14 +42,18 @@ class Plant {
         stem.grow();
       }
       if (activeLeftStems.length < 3) {
-        const options = [...this.leftStems, this.leftStem];
-        const chosen = Math.floor(Math.random() * options.length);
-        options[chosen].sproutNewStem();
+        const options = [...this.leftStems, this.leftStem].filter(s => s.isSproutable());
+        if (options.length > 0) {
+          const chosen = Math.floor(Math.random() * options.length);
+          options[chosen].sproutNewStem();
+        }
       }
       if (activeRightStems.length < 3) {
-        const options = [...this.rightStems, this.rightStem];
-        const chosen = Math.floor(Math.random() * options.length);
-        options[chosen].sproutNewStem();
+        const options = [...this.rightStems, this.rightStem].filter(s => s.isSproutable());
+        if (options.length > 0) {
+          const chosen = Math.floor(Math.random() * options.length);
+          options[chosen].sproutNewStem();
+        }
       }
 
       if (this.totalSteps > BLOOM_STEPS && this.totalSteps % 3 === 0) {

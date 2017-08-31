@@ -97,15 +97,7 @@ class Stem {
   }
 
   sproutNewStem() {
-    console.log('new stem!');
-    let node = this.frontier;
-    node = node.getParent();
-    while (node) {
-      if (node.getValidFrontierNeighbors().length > 0) {
-        break;
-      }
-      node = node.getParent();
-    }
+    const node = this.getFirstViableSproutNode();
     if (node) {
       const newNode = node.growNewNode();
       if (newNode) {
@@ -115,5 +107,21 @@ class Stem {
         this.onNewStems(newStem);
       }
     }
+  }
+
+  isSproutable() {
+    return this.getFirstViableSproutNode() !== null;
+  }
+
+  getFirstViableSproutNode() {
+    let node = this.frontier;
+    node = node.getParent();
+    while (node) {
+      if (node.getValidFrontierNeighbors().length > 0) {
+        break;
+      }
+      node = node.getParent();
+    }
+    return node;
   }
 }
