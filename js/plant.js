@@ -16,6 +16,8 @@ class Plant {
     this.leftStems = [];
     this.rightStems = [];
     this.totalSteps = 0;
+
+    this.bloomed = [];
   }
 
   update() {
@@ -81,13 +83,10 @@ class Plant {
   }
 
   bloom() {
-    if (this.leftStem) {
-      this.leftStem.bloom();
-      this.rightStem.bloom();
-      if (this.leftMiddleStem) {
-        this.leftMiddleStem.bloom();
-        this.rightMiddleStem.bloom();
-      }
+    const activeLeftStems = this.getActiveLeftStems();
+    const activeRightStems = this.getActiveRightStems();
+    for (const stem of [...activeLeftStems, ...activeRightStems]) {
+      stem.bloom();
     }
   }
 }

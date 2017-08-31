@@ -36,39 +36,13 @@ class Stem {
   }
 
   bloom() {
-    if (!this.canBloom()) {
+    if (!this.frontier.canBloom()) {
       return;
     }
 
     this.isGrown = true;
 
-    // Set center to yellow.
-    this.canvasGrid.update(this.frontierCol, this.frontierRow, BRIGHT_YELLOW);
-    // Draw petals around the center.
-    this.canvasGrid.update(this.frontierCol - 1, this.frontierRow, PICO_WHITE);
-    this.canvasGrid.update(this.frontierCol + 1, this.frontierRow, PICO_WHITE);
-    this.canvasGrid.update(this.frontierCol, this.frontierRow - 1, PICO_WHITE);
-    this.canvasGrid.update(this.frontierCol, this.frontierRow + 1, PICO_WHITE);
-
-    // Randomly choose two diagonal corners for the petals.
-    // Prooooobably a more elegant way to do this but :shruggies:
-    const options = [
-      { colDelta: -1, rowDelta: -1 },
-      { colDelta: -1, rowDelta: 1 },
-      { colDelta: 1, rowDelta: -1 },
-      { colDelta: 1, rowDelta: 1 }
-    ];
-    const petalIndex1 = Math.floor(Math.random() * options.length);
-    const petal1 = options.splice(petalIndex1, 1)[0];
-    const petalIndex2 = Math.floor(Math.random() * options.length);
-    const petal2 = options.splice(petalIndex2, 1)[0];
-
-    this.canvasGrid.update(this.frontierCol + petal1.colDelta, this.frontierRow + petal1.rowDelta, GREEN);
-    this.canvasGrid.update(this.frontierCol + petal2.colDelta, this.frontierRow + petal2.rowDelta, GREEN);
-  }
-
-  canBloom() {
-    const trajectory = this.frontier.getTrajectory();
+    this.frontier.bloom();
   }
 
   grow() {
@@ -96,7 +70,6 @@ class Stem {
           break;
       }
       this.printDebug(`trajectory: ${trajectory}`);
-      this.frontier.canBloom();
     } else {
       this.isGrown = true;
     }

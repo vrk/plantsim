@@ -36,8 +36,10 @@ class PlantNode {
     const newCol = this.col + deltas.colDelta;
     const newRow = this.row + deltas.rowDelta;
 
-    const realColor = this.colorIndex !== undefined ? STEM_COLORS[this.colorIndex].primary : DARK_GREEN;
-    const frontColor = this.colorIndex !== undefined ? STEM_COLORS[this.colorIndex].secondary : GREEN;
+    // const realColor = this.colorIndex !== undefined ? STEM_COLORS[this.colorIndex].primary : DARK_GREEN;
+    // const frontColor = this.colorIndex !== undefined ? STEM_COLORS[this.colorIndex].secondary : GREEN;
+    const realColor = DARK_GREEN;
+    const frontColor = GREEN;
     this.canvasGrid.update(this.col, this.row, realColor);
     this.canvasGrid.update(newCol, newRow, frontColor);
     const newNodeParentIndex = this.getParentIndex(positionIndex);
@@ -118,6 +120,49 @@ class PlantNode {
       endRow = this.row + Math.floor(STRAWBERRY_HEIGHT / 2);  // inclusive
     }
     return this.hasSpaceInRectangle(startCol, endCol, startRow, endRow);
+  }
+
+  bloom() {
+    const trajectory = this.getTrajectory();
+    this.canvasGrid.update(this.col, this.row, DARK_GREEN);
+    if (trajectory === TRAVEL_UP) {
+      this.canvasGrid.update(this.col - 1, this.row - 1, GREEN);
+      this.canvasGrid.update(this.col + 1, this.row - 1, GREEN);
+      this.canvasGrid.update(this.col, this.row - 1, PICO_WHITE);
+      this.canvasGrid.update(this.col - 1, this.row - 2, PICO_WHITE);
+      this.canvasGrid.update(this.col, this.row - 2, BRIGHT_YELLOW);
+      this.canvasGrid.update(this.col + 1, this.row - 2, PICO_WHITE);
+      this.canvasGrid.update(this.col, this.row - 3, PICO_WHITE);
+    } else if (trajectory === TRAVEL_LEFT) {
+      this.canvasGrid.update(this.col - 1, this.row - 1, GREEN);
+      this.canvasGrid.update(this.col - 1, this.row, PICO_WHITE);
+      this.canvasGrid.update(this.col - 1, this.row + 1, GREEN);
+
+      this.canvasGrid.update(this.col - 2, this.row - 1, PICO_WHITE);
+      this.canvasGrid.update(this.col - 2, this.row, BRIGHT_YELLOW);
+      this.canvasGrid.update(this.col - 2, this.row + 1, PICO_WHITE);
+
+      this.canvasGrid.update(this.col - 3, this.row, PICO_WHITE);
+    } else if (trajectory === TRAVEL_DOWN) {
+      this.canvasGrid.update(this.col - 1, this.row + 1, GREEN);
+      this.canvasGrid.update(this.col + 1, this.row + 1, GREEN);
+      this.canvasGrid.update(this.col, this.row + 1, PICO_WHITE);
+      this.canvasGrid.update(this.col - 1, this.row + 2, PICO_WHITE);
+      this.canvasGrid.update(this.col, this.row + 2, BRIGHT_YELLOW);
+      this.canvasGrid.update(this.col + 1, this.row + 2, PICO_WHITE);
+      this.canvasGrid.update(this.col, this.row + 3, PICO_WHITE);
+    } else if (trajectory === TRAVEL_RIGHT) {
+      this.canvasGrid.update(this.col + 1, this.row - 1, GREEN);
+      this.canvasGrid.update(this.col + 1, this.row, PICO_WHITE);
+      this.canvasGrid.update(this.col + 1, this.row + 1, GREEN);
+
+      this.canvasGrid.update(this.col + 2, this.row - 1, PICO_WHITE);
+      this.canvasGrid.update(this.col + 2, this.row, BRIGHT_YELLOW);
+      this.canvasGrid.update(this.col + 2, this.row + 1, PICO_WHITE);
+
+      this.canvasGrid.update(this.col + 3, this.row, PICO_WHITE);
+    }
+
   }
 
   hasSpaceInRectangle(startCol, endCol, startRow, endRow) {
