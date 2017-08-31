@@ -51,7 +51,7 @@ class Stem {
     if (this.frontier.canBloom(STRAWBERRY_WIDTH + 2, STRAWBERRY_HEIGHT + 2)) {
       size++;
     }
-    this.frontier.reserveSpaceInRectangle(size, size);
+    this.frontier.reserveSpaceInRectangle(size - 2, size - 1);
     this.strawberry = new Strawberry(this.frontier, this.canvasGrid, size);
     this.hasStrawberry = true;
   }
