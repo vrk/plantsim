@@ -42,29 +42,29 @@ class Plant {
         stem.grow();
       }
 
-      // if (activeLeftStems.length < 3) {
-      //   console.log('need more left');
-      //   const options = [...this.leftStems, this.leftStem].filter(s => s.isSproutable());
-      //   if (options.length > 0) {
-      //     const chosen = Math.floor(Math.random() * options.length);
-      //     options[chosen].sproutNewStem();
-      //   }
-      // }
-      // if (activeRightStems.length < 3) {
-      //   console.log('need more right');
-      //   const options = [...this.rightStems, this.rightStem].filter(s => s.isSproutable());
-      //   if (options.length > 0) {
-      //     const chosen = Math.floor(Math.random() * options.length);
-      //     options[chosen].sproutNewStem();
-      //   }
-      // }
-      //
-      // if (this.totalSteps > BLOOM_STEPS) {
-      //   this.bloom();
-      // }
-      // for (const bloom of this.bloomed) {
-      //   bloom.grow();
-      // }
+      if (activeLeftStems.length < 3) {
+        console.log('need more left');
+        const options = [...this.leftStems, this.leftStem].filter(s => s.isSproutable());
+        if (options.length > 0) {
+          const chosen = Math.floor(Math.random() * options.length);
+          options[chosen].sproutNewStem();
+        }
+      }
+      if (activeRightStems.length < 3) {
+        console.log('need more right');
+        const options = [...this.rightStems, this.rightStem].filter(s => s.isSproutable());
+        if (options.length > 0) {
+          const chosen = Math.floor(Math.random() * options.length);
+          options[chosen].sproutNewStem();
+        }
+      }
+
+      if (this.totalSteps > BLOOM_STEPS) {
+        this.bloom();
+      }
+      for (const bloom of this.bloomed) {
+        bloom.grow();
+      }
     }
   }
 
