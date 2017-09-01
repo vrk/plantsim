@@ -28,7 +28,7 @@ class Strawberry {
     if (this.isGrown) {
       return;
     }
-    
+
     if (this.daysOld === 0) {
       this.drawStem();
     } else if (this.daysOld === 2) {
@@ -40,16 +40,30 @@ class Strawberry {
     } else if (this.daysOld === 12) {
       if (this.size == SMALL_SIZE) {
         this.drawSmallStrawberry(RED_STRAWBERRY, PINK_STRAWBERRY, true);
+        this.isGrown = true;
       } else {
         this.drawMediumStrawberryPartOne(YOUNG_STRAWBERRY, PICO_WHITE);
       }
-    } else if (this.daysOld === 14 && this.size !== SMALL_SIZE) {
-      this.drawMediumStrawberryPartTwo(YOUNG_STRAWBERRY, PICO_WHITE);
-    } else if (this.daysOld === 16 && this.size !== SMALL_SIZE) {
-      this.drawMediumStrawberryPartTwo(RED_STRAWBERRY, PINK_STRAWBERRY);
-    } else if (this.daysOld > 16) {
-      this.isGrown = true;
     }
+
+    if (this.size === MEDIUM_SIZE) {
+      if (this.daysOld === 14) {
+        this.drawMediumStrawberryPartTwo(YOUNG_STRAWBERRY, PICO_WHITE);
+      } else if (this.daysOld === 16) {
+        this.drawMediumStrawberryPartTwo(RED_STRAWBERRY, PINK_STRAWBERRY);
+        this.isGrown = true;
+      }
+    } else if (this.size === LARGE_SIZE) {
+      if (this.daysOld === 14) {
+        this.drawMediumStrawberryPartTwo(YOUNG_STRAWBERRY, PICO_WHITE);
+      } else if (this.daysOld === 16) {
+        this.drawLargeStraberryPartOne(YOUNG_STRAWBERRY, PICO_WHITE);
+      } else if (this.daysOld === 18) {
+        this.drawLargeStraberryPartTwo(YOUNG_STRAWBERRY, PICO_WHITE);
+        this.drawLargeStraberryPartThree(YOUNG_STRAWBERRY, PICO_WHITE);
+      }
+    }
+
     this.daysOld++;
   }
 
@@ -121,6 +135,101 @@ class Strawberry {
     }
   }
 
+  //
+  //  **
+  // ****
+  // ^-- (col, row) for this pixel
+  drawLargeStraberryPartOne(primary, secondary) {
+    const trajectory = this.plantNode.getTrajectory();
+
+    if (trajectory === TRAVEL_UP) {
+      this.canvasGrid.update(this.col - this.strawbSideOffset, this.row - 2, GREEN);
+    } else if (trajectory === TRAVEL_LEFT) {
+      this.canvasGrid.update(this.col - 2, this.row - this.strawbSideOffset, GREEN);
+    } else if (trajectory === TRAVEL_DOWN) {
+      this.canvasGrid.update(this.col + this.strawbSideOffset, this.row + 2, GREEN);
+    } else if (trajectory === TRAVEL_RIGHT) {
+      this.canvasGrid.update(this.col + 2, this.row + this.strawbSideOffset, GREEN);
+    }
+
+    const offset = this.strawbSideOffset === 2 ? -1 : 1;
+    if (trajectory === TRAVEL_UP) {
+      this.canvasGrid.update(this.col - this.strawbSideOffset, this.row - 3, primary);
+      this.drawSmallStrawberryTopper(trajectory, primary, this.topPosition + offset);
+    } else if (trajectory === TRAVEL_LEFT) {
+      this.canvasGrid.update(this.col - 3, this.row - this.strawbSideOffset, primary);
+      this.drawSmallStrawberryTopper(trajectory, primary, this.topPosition + offset);
+    } else if (trajectory === TRAVEL_DOWN) {
+      this.canvasGrid.update(this.col + this.strawbSideOffset, this.row + 3, primary);
+      this.drawSmallStrawberryTopper(trajectory, primary, this.topPosition - offset);
+    } else if (trajectory === TRAVEL_RIGHT) {
+      this.canvasGrid.update(this.col + 3, this.row + this.strawbSideOffset, primary);
+      this.drawSmallStrawberryTopper(trajectory, primary, this.topPosition - offset);
+    }
+  }
+
+  drawLargeStraberryPartTwo(primary, secondary) {
+    const trajectory = this.plantNode.getTrajectory();
+
+    const offset = this.strawbSideOffset === 2 ? -1 : 1;
+    if (trajectory === TRAVEL_UP) {
+      this.canvasGrid.update(this.col - this.strawbSideOffset, this.row - 4, primary);
+      this.canvasGrid.update(this.col - this.strawbSideOffset - offset, this.row - 5, primary);
+      this.canvasGrid.update(this.col - this.strawbSideOffset - 2*offset, this.row - 5, primary);
+    } else if (trajectory === TRAVEL_LEFT) {
+      this.canvasGrid.update(this.col - 4, this.row - this.strawbSideOffset, primary);
+      this.canvasGrid.update(this.col - 5, this.row - this.strawbSideOffset - offset, primary);
+      this.canvasGrid.update(this.col - 5, this.row - this.strawbSideOffset - 2*offset, primary);
+    } else if (trajectory === TRAVEL_DOWN) {
+      this.canvasGrid.update(this.col + this.strawbSideOffset, this.row + 4, primary);
+      this.canvasGrid.update(this.col + this.strawbSideOffset + offset, this.row + 5, primary);
+      this.canvasGrid.update(this.col + this.strawbSideOffset + 2*offset, this.row + 5, primary);
+    } else if (trajectory === TRAVEL_RIGHT) {
+      this.canvasGrid.update(this.col + 4, this.row + this.strawbSideOffset, primary);
+      this.canvasGrid.update(this.col + 5, this.row + this.strawbSideOffset + offset, primary);
+      this.canvasGrid.update(this.col + 5, this.row + this.strawbSideOffset + 2*offset, primary);
+    }
+  }
+
+
+  drawLargeStraberryPartThree(primary, secondary) {
+    const trajectory = this.plantNode.getTrajectory();
+
+    const offset = this.strawbSideOffset === 2 ? -1 : 1;
+    if (trajectory === TRAVEL_UP) {
+      this.canvasGrid.update(this.col + this.strawbSideOffset, this.row - 4, primary);
+
+      this.canvasGrid.update(this.col + this.strawbSideOffset + offset, this.row - 5, primary);
+
+      this.canvasGrid.update(this.col - this.strawbSideOffset, this.row - 5, primary);
+      this.canvasGrid.update(this.col - this.strawbSideOffset - offset, this.row - 6, primary);
+      this.canvasGrid.update(this.col - this.strawbSideOffset - 2*offset, this.row - 6, primary);
+    } else if (trajectory === TRAVEL_LEFT) {
+      this.canvasGrid.update(this.col - 4, this.row + this.strawbSideOffset, primary);
+      this.canvasGrid.update(this.col - 5, this.row - this.strawbSideOffset, primary);
+
+      this.canvasGrid.update(this.col - 5, this.row + this.strawbSideOffset + offset, primary);
+
+      this.canvasGrid.update(this.col - 6, this.row - this.strawbSideOffset - offset, primary);
+      this.canvasGrid.update(this.col - 6, this.row - this.strawbSideOffset - 2*offset, primary);
+    } else if (trajectory === TRAVEL_DOWN) {
+      this.canvasGrid.update(this.col - this.strawbSideOffset, this.row + 4, primary);
+      this.canvasGrid.update(this.col + this.strawbSideOffset, this.row + 5, primary);
+
+      this.canvasGrid.update(this.col - this.strawbSideOffset - offset, this.row + 5, primary);
+
+      this.canvasGrid.update(this.col + this.strawbSideOffset + offset, this.row + 6, primary);
+      this.canvasGrid.update(this.col + this.strawbSideOffset + 2*offset, this.row + 6, primary);
+    } else if (trajectory === TRAVEL_RIGHT) {
+      this.canvasGrid.update(this.col + 4, this.row - this.strawbSideOffset, primary);
+      this.canvasGrid.update(this.col + 5, this.row + this.strawbSideOffset, primary);
+
+      this.canvasGrid.update(this.col + 5, this.row - this.strawbSideOffset - offset, primary);
+
+      this.canvasGrid.update(this.col + 6, this.row + this.strawbSideOffset + offset, primary);
+      this.canvasGrid.update(this.col + 6, this.row + this.strawbSideOffset + 2*offset, primary);
+    }
+  }
 
   updateRect(startCol, endCol, startRow, endRow, color) {
     for (let c = startCol; c <= endCol; c++) {
