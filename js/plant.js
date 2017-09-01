@@ -42,7 +42,7 @@ class Plant {
         stem.grow();
       }
 
-      if (activeLeftStems.length < 3) {
+      if (activeLeftStems.length < MAX_ACTIVE_STEMS / 2) {
         console.log('need more left');
         const options = [...this.leftStems, this.leftStem].filter(s => s.isSproutable());
         if (options.length > 0) {
@@ -50,7 +50,7 @@ class Plant {
           options[chosen].sproutNewStem();
         }
       }
-      if (activeRightStems.length < 3) {
+      if (activeRightStems.length < MAX_ACTIVE_STEMS / 2) {
         console.log('need more right');
         const options = [...this.rightStems, this.rightStem].filter(s => s.isSproutable());
         if (options.length > 0) {
@@ -106,10 +106,5 @@ class Plant {
         }
       }
     }
-    // if (bloomable.length > 0) {
-    //   const index = Math.floor(Math.random() * bloomable.length);
-    //   const stem = bloomable[index];
-    //   this.bloomed.push(stem);
-    // }
   }
 }

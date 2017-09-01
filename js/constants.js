@@ -39,6 +39,9 @@ const SMALL_SIZE = 5;
 const MEDIUM_SIZE = 6;
 const LARGE_SIZE = 7;
 
+// Set to an even number for even growth
+const MAX_ACTIVE_STEMS = 6;
+
 const ALL_NODE_INDICES = [
   TOP_LEFT,
   TOP_MIDDLE,
@@ -59,7 +62,7 @@ const TRAVEL_LEFT_DOWN = 5;
 const TRAVEL_RIGHT_UP = 6;
 const TRAVEL_RIGHT_DOWN = 7;
 
-const BLOOM_STEPS = 7;
+const BLOOM_STEPS = 10;
 
 const STEM_COLORS = [
   {

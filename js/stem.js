@@ -53,7 +53,7 @@ class Stem {
     if (this.frontier.canBloom(STRAWBERRY_WIDTH + 2, STRAWBERRY_HEIGHT + 2)) {
       size++;
     }
-    this.frontier.reserveSpaceInRectangle(size - 2, size);
+    this.frontier.reserveSpaceInRectangle(size - 2, size - 1);
     this.strawberry = new Strawberry(this.frontier, this.canvasGrid, size);
     this.hasStrawberry = true;
     return true;
@@ -119,6 +119,9 @@ class Stem {
   }
 
   isSproutable() {
+    if (this.frontier.getValidFrontierNeighbors().length > 0) {
+      return true;
+    }
     return this.getFirstViableSproutNode() !== null;
   }
 
@@ -132,6 +135,24 @@ class Stem {
       node = node.getParent();
     }
     return node;
+  }
+
+  getRandomViableSproutNode() {
+    let node = this.frontier;
+    node = node.getParent();
+
+    const viableNodes = [];
+    while (node) {
+      if (node.getValidFrontierNeighbors().length > 0) {
+        viableNodes.push(node);
+      }
+      node = node.getParent();
+    }
+    if (viableNodes.length > 0) {
+      const chosen = Math.floor(Math.random() * viableNodes.length);
+      return viableNodes[chosen];
+    }
+    return null;
   }
 
   colorParentPath() {
