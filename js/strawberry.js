@@ -5,6 +5,7 @@ class Strawberry {
     this.row = this.plantNode.row;
     this.canvasGrid = canvasGrid;
     this.size = size;
+    this.isGrown = false;
     this.daysOld = 0;
 
     // Decide on random decisions.
@@ -24,6 +25,10 @@ class Strawberry {
   }
 
   grow() {
+    if (this.isGrown) {
+      return;
+    }
+    
     if (this.daysOld === 0) {
       this.drawStem();
     } else if (this.daysOld === 2) {
@@ -42,6 +47,8 @@ class Strawberry {
       this.drawMediumStrawberryPartTwo(YOUNG_STRAWBERRY, PICO_WHITE);
     } else if (this.daysOld === 16 && this.size !== SMALL_SIZE) {
       this.drawMediumStrawberryPartTwo(RED_STRAWBERRY, PINK_STRAWBERRY);
+    } else if (this.daysOld > 16) {
+      this.isGrown = true;
     }
     this.daysOld++;
   }

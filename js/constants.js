@@ -59,7 +59,7 @@ const TRAVEL_LEFT_DOWN = 5;
 const TRAVEL_RIGHT_UP = 6;
 const TRAVEL_RIGHT_DOWN = 7;
 
-const BLOOM_STEPS = 10;
+const BLOOM_STEPS = 5;
 
 const STEM_COLORS = [
   {

@@ -306,7 +306,7 @@ class PlantNode {
   // Returns the next node in the stem, null if there is none.
   // - If the stem forks, chooses randomly between the two nodes.
   getParent() {
-    if (!this.parentIndex) {
+    if (this.parentIndex === undefined) {
       return null;
     }
     return this.neighbors[this.parentIndex];

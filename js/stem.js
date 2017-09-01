@@ -63,7 +63,13 @@ class Stem {
     this.totalSteps++;
 
     if (this.strawberry) {
-      this.strawberry.grow();
+      if (this.strawberry.isGrown) {
+        console.log('grown!');
+        this.isGrown = true;
+        return;
+      } else {
+        this.strawberry.grow();
+      }
     } else {
       const nextNode = this.frontier.growNewNode();
       if (nextNode) {
@@ -124,4 +130,15 @@ class Stem {
     }
     return node;
   }
+
+  colorParentPath() {
+    let node = this.frontier;
+    node = node.getParent();
+    while (node) {
+      this.canvasGrid.drawSquare(node.col, node.row, GREEN);
+      node = node.getParent();
+    }
+    return node;
+  }
+
 }
