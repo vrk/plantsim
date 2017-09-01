@@ -101,19 +101,19 @@ class PlantNode {
       startCol = this.col - Math.floor(width / 2);
       endCol = this.col + Math.floor(width / 2); // inclusive
       startRow = this.row - height;
-      endRow = this.row - 1;  // inclusive
+      endRow = this.row;  // inclusive
     } else if (trajectory === TRAVEL_LEFT) {
       startCol = this.col - width;
-      endCol = this.col - 1; // inclusive
+      endCol = this.col; // inclusive
       startRow = this.row - Math.floor(height / 2);
       endRow = this.row + Math.floor(height / 2);  // inclusive
     } else if (trajectory === TRAVEL_DOWN) {
       startCol = this.col - Math.floor(width / 2);
       endCol = this.col + Math.floor(width / 2); // inclusive
-      startRow = this.row + 1;
+      startRow = this.row;
       endRow = this.row + height;  // inclusive
     } else if (trajectory === TRAVEL_RIGHT) {
-      startCol = this.col + 1;
+      startCol = this.col;
       endCol = this.col + height; // inclusive
       startRow = this.row - Math.floor(height / 2);
       endRow = this.row + Math.floor(height / 2);  // inclusive
@@ -124,6 +124,9 @@ class PlantNode {
   hasSpaceInRectangle(startCol, endCol, startRow, endRow) {
     for (let c = startCol; c <= endCol; c++) {
       for (let r = startRow; r <= endRow; r++) {
+        if (r === this.row && c === this.col) {
+          continue;
+        }
         if (!this.canvasGrid.isInBounds(c, r) || this.canvasGrid.isOccupied(c, r)) {
           return false;
         }

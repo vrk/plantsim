@@ -99,9 +99,11 @@ class Plant {
     const allActive = [...activeLeftStems, ...activeRightStems];
     const bloomable = allActive.filter(s => s.canBloom());
     for (const stem of bloomable) {
-      if (Math.random() < 0.1 && !this.bloomed.includes(stem)) {
-        stem.bloom();
-        this.bloomed.push(stem);
+      if (Math.random() < 0.2 && !this.bloomed.includes(stem)) {
+        const result = stem.bloom();
+        if (result) {
+          this.bloomed.push(stem);
+        }
       }
     }
     // if (bloomable.length > 0) {
