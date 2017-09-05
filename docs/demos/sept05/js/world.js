@@ -1,0 +1,51 @@
+class World {
+  constructor() {
+    this.canvasElement = document.querySelector('canvas');
+    this.canvasGrid = new CanvasGrid(this.canvasElement);
+    this.onCanvasClicked = this.onCanvasClicked.bind(this);
+
+    this.ground = new Ground(this.canvasGrid);
+  }
+
+  initialize() {
+    this.ground.initialize();
+    this.canvasElement.addEventListener('click', this.onCanvasClicked);
+  }
+
+  draw() {
+    this.canvasGrid.draw();
+  }
+
+  onCanvasClicked(event) {
+    const xPos = event.offsetX;
+    const yPos = event.offsetY;
+    const col = Math.floor(xPos / CANVAS_SIZE * PIXELS_WIDE);
+    const row = Math.floor(yPos / CANVAS_SIZE * PIXELS_WIDE);
+    if (this.plant) {
+      this.plant.updateNextSquare();
+    } else if (row > PIXELS_WIDE - GROUND_HEIGHT &&
+        row < PIXELS_WIDE -  GROUND_HEIGHT / 2) {
+      this.plant = this.ground.addSeed(col, row);
+    }
+    this.draw();
+  }
+
+  debugStep(n = 1) {
+    if (!this.plant) {
+      return;
+    }
+
+    for (let i = 1; i <= n; i++) {
+      this.plant.updateNextSquare();
+      this.draw();
+    }
+  }
+
+  bloom() {
+    if (!this.plant) {
+      return;
+    }
+    this.plant.bloom();
+    this.draw();
+  }
+}

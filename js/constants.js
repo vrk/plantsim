@@ -40,7 +40,7 @@ const MEDIUM_SIZE = 6;
 const LARGE_SIZE = 7;
 
 // Set to an even number for even growth
-const MAX_ACTIVE_STEMS = 6;
+const MAX_ACTIVE_STEMS = 4;
 
 const ALL_NODE_INDICES = [
   TOP_LEFT,

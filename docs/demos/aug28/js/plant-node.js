@@ -27,8 +27,9 @@ class PlantNode {
       return null;
     }
 
-    const index = Math.floor(Math.random() * spaces.length);
-    const deltas = this.getRowColDeltaFromIndex(spaces[index]);
+    const indexIndex = Math.floor(Math.random() * spaces.length);
+    const index = spaces[indexIndex];
+    const deltas = this.getRowColDeltaFromIndex(index);
     const newCol = this.col + deltas.colDelta;
     const newRow = this.row + deltas.rowDelta;
 

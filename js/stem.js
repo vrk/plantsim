@@ -140,5 +140,4 @@ class Stem {
     }
     return node;
   }
-
 }
