@@ -30,7 +30,9 @@ class Plant {
     } else if (!this.leftStem) {
       console.assert(!this.rightStem);
       this.leftStem = this.stalk.getLeftStem();
+      this.leftStem.setConstraints(LEAN_LEFT);
       this.rightStem = this.stalk.getRightStem();
+      this.rightStem.setConstraints(LEAN_RIGHT);
 
       this.leftStem.setOnNewStemCallback(this.onNewLeftMiddleStem);
       this.rightStem.setOnNewStemCallback(this.onNewRightMiddleStem);

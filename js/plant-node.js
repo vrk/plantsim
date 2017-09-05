@@ -24,12 +24,25 @@ class PlantNode {
 
   // Returns a new random PlantNode that is connected to the current node.
   // Returns null if no new PlantNode could be grown.
-  growNewNode(opt_filterFunction) {
+  growNewNode(direction) {
     let spaces = this.getValidFrontierNeighbors();
+    const topMiddle = spaces.filter(s => s === TOP_LEFT || s === MIDDLE_LEFT || s === TOP_MIDDLE);
+    const right = spaces.filter(s => s === TOP_RIGHT || s === MIDDLE_RIGHT || s === TOP_MIDDLE);
+    const other = spaces.filter(s => s === BOTTOM_MIDDLE || s === BOTTOM_RIGHT || s === BOTTOM_LEFT);
+    const random = Math.random();
+    if (direction === LEAN_LEFT) {
+      if (spaces.includes(TOP_LEFT)) {
+        spaces = topMiddle;
+      }
+    } else if (direction === LEAN_RIGHT) {
+      if (spaces.includes(TOP_RIGHT)) {
+        spaces = right;
+      }
+    }
+
     if (spaces.length === 0) {
       return null;
     }
-
     const indexIndex = Math.floor(Math.random() * spaces.length);
     const positionIndex = spaces[indexIndex];
     const deltas = this.getRowColDeltaFromIndex(positionIndex);

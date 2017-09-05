@@ -18,19 +18,8 @@ class Stem {
     this.strawberry = null;
   }
 
-  setConstraints(nudge, opt_colBound) {
+  setConstraints(nudge) {
     this.direction = nudge;
-    if (nudge === LEAN_LEFT) {
-      this.maxCol = opt_colBound || this.initialCol;
-      this.minRow = this.initialRow - 3;
-    } else if (nudge === LEAN_RIGHT) {
-      this.minCol = opt_colBound ||this.initialCol;
-      this.minRow = this.initialRow - 3;
-    } else if (nudge === LEAN_LEFT_MIDDLE) {
-      this.maxCol = opt_colBound || this.initialCol;
-    } else if (nudge === LEAN_RIGHT_MIDDLE) {
-      this.minCol = opt_colBound || this.initialCol;
-    }
   }
 
   setOnNewStemCallback(onNewStems) {
@@ -74,7 +63,7 @@ class Stem {
         this.strawberry.grow();
       }
     } else {
-      const nextNode = this.frontier.growNewNode();
+      const nextNode = this.frontier.growNewNode(this.direction);
       if (nextNode) {
         if (Math.random() < 0.25) {
           this.frontier.growLeaves();
@@ -99,6 +88,7 @@ class Stem {
       if (newNode) {
         const newStem =
                 new Stem(newNode.col, newNode.row, this.canvasGrid, node);
+        newStem.setConstraints(this.direction);
         newStem.setOnNewStemCallback(this.onNewStems);
         this.onNewStems(newStem);
       }
