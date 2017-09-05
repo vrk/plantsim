@@ -63,6 +63,7 @@ class Stem {
     if (this.isGrown) {
       return;
     }
+
     this.totalSteps++;
 
     if (this.strawberry) {

@@ -43,7 +43,6 @@ class Plant {
       }
 
       if (activeLeftStems.length < MAX_ACTIVE_STEMS / 2) {
-        console.log('need more left');
         const options = [...this.leftStems, this.leftStem].filter(s => s.isSproutable());
         if (options.length > 0) {
           const chosen = Math.floor(Math.random() * options.length);
@@ -51,7 +50,6 @@ class Plant {
         }
       }
       if (activeRightStems.length < MAX_ACTIVE_STEMS / 2) {
-        console.log('need more right');
         const options = [...this.rightStems, this.rightStem].filter(s => s.isSproutable());
         if (options.length > 0) {
           const chosen = Math.floor(Math.random() * options.length);
