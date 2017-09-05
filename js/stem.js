@@ -50,10 +50,10 @@ class Stem {
     if (this.frontier.canBloom(STRAWBERRY_WIDTH + 1, STRAWBERRY_HEIGHT + 1)) {
       size++;
     }
-    if (this.frontier.canBloom(STRAWBERRY_WIDTH + 2, STRAWBERRY_HEIGHT + 2)) {
+    if (Math.random() < 0.25 && this.frontier.canBloom(STRAWBERRY_WIDTH + 2, STRAWBERRY_HEIGHT + 2)) {
       size++;
     }
-    this.frontier.reserveSpaceInRectangle(size - 2, size - 1);
+    this.frontier.reserveSpaceInRectangle(size - 2, size - 1 - ((size + 1) % 2));
     this.strawberry = new Strawberry(this.frontier, this.canvasGrid, size);
     this.hasStrawberry = true;
     return true;
@@ -127,7 +127,6 @@ class Stem {
 
   getFirstViableSproutNode() {
     let node = this.frontier;
-    node = node.getParent();
     while (node) {
       if (node.getValidFrontierNeighbors().length > 0) {
         break;

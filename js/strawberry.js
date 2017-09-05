@@ -60,7 +60,13 @@ class Strawberry {
         this.drawLargeStraberryPartOne(YOUNG_STRAWBERRY, PICO_WHITE);
       } else if (this.daysOld === 18) {
         this.drawLargeStraberryPartTwo(YOUNG_STRAWBERRY, PICO_WHITE);
+      } else if (this.daysOld === 20) {
         this.drawLargeStraberryPartThree(YOUNG_STRAWBERRY, PICO_WHITE);
+      } else if (this.daysOld === 22) {
+        this.drawMediumStrawberryPartTwo(RED_STRAWBERRY, PINK_STRAWBERRY);
+        this.drawLargeStraberryPartOne(RED_STRAWBERRY, PINK_STRAWBERRY);
+        this.drawLargeStraberryPartTwo(RED_STRAWBERRY, PINK_STRAWBERRY);
+        this.drawLargeStraberryPartThree(RED_STRAWBERRY, PINK_STRAWBERRY);
       }
     }
 

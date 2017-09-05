@@ -141,6 +141,7 @@ class PlantNode {
     let endCol;
     let startRow;
     let endRow;
+    // TODO: Fix bounds for MEDIUM size strawberries
     if (trajectory === TRAVEL_UP) {
       // Check the N x N block above the current space.
       startCol = this.col - Math.floor(width / 2);
@@ -148,10 +149,12 @@ class PlantNode {
       startRow = this.row - height;
       endRow = this.row - 1;  // inclusive
     } else if (trajectory === TRAVEL_LEFT) {
-      startCol = this.col - width;
+
+      // TODO: Fix bug!!! Bounds wrong here.
+      startCol = this.col - height;
       endCol = this.col - 1; // inclusive
-      startRow = this.row - Math.floor(height / 2);
-      endRow = this.row + Math.floor(height / 2);  // inclusive
+      startRow = this.row - Math.floor(width / 2);
+      endRow = this.row + Math.floor(width / 2);  // inclusive
     } else if (trajectory === TRAVEL_DOWN) {
       startCol = this.col - Math.floor(width / 2);
       endCol = this.col + Math.floor(width / 2); // inclusive
@@ -160,9 +163,10 @@ class PlantNode {
     } else if (trajectory === TRAVEL_RIGHT) {
       startCol = this.col + 1;
       endCol = this.col + height; // inclusive
-      startRow = this.row - Math.floor(height / 2);
-      endRow = this.row + Math.floor(height / 2);  // inclusive
+      startRow = this.row - Math.floor(width / 2);
+      endRow = this.row + Math.floor(width / 2);  // inclusive
     }
+
     this.updateRect(startCol, endCol, startRow, endRow, 'black');
   }
 
