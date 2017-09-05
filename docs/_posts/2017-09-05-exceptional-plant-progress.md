@@ -10,7 +10,7 @@ id: 104
 #### {{ page.date | date: '%B %d, %Y' }}
 
 - [Live demo here]({{ site.url }}{{ site.baseurl }}/demos/sept05/index.html): generate some strawberry plants!
-- [Source code at this point in history]()
+- [Source code at this point in history](https://github.com/vrk/plantsim/tree/5a1c126a31688cd8ce6703fc030c473bdec8762b)
 
 Latest video, plant timelapse:
 
