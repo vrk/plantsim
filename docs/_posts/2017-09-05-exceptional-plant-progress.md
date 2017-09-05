@@ -60,7 +60,7 @@ Things I could (but probably won't) clean up later:
 
 When I was playing around with plant growth algorithms, I made this happen:
 
-<video src="{{ site.url }}{{ site.baseurl }}/assets/videos/greenery-growth.mp4" height="300" autoplay loop></video>
+<video src="{{ site.url }}{{ site.baseurl }}/assets/videos/greenery-growth.mp4" height="300" loop controls></video>
 
 Didn't stick with this algorithm, but it's fun to watch!
 
@@ -74,7 +74,7 @@ Instead, I mostly suffered through print-statement debugging, until I realized t
 
 So I wrote a debug mode that was kind of cool, where I color-coded each branch of the tree, and matched the console log statements to the color of the branch:
 
-<video src="{{ site.url }}{{ site.baseurl }}/assets/videos/plant-debug.mp4" height="300" autoplay loop></video>
+<video src="{{ site.url }}{{ site.baseurl }}/assets/videos/plant-debug.mp4" height="300" loop controls></video>
 
 - ([see it live - open the console, docked right!]({{ site.url }}{{ site.baseurl }}/demos/debug/index.html))
 
