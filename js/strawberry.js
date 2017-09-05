@@ -270,7 +270,7 @@ class Strawberry {
         if (r === row && c === col) {
           continue;
         }
-        if (this.canvasGrid.isOccupied(r, c)) {
+        if (!this.canvasGrid.isInBounds(c, r) || this.canvasGrid.isOccupied(c, r)) {
           return false;
         }
       }
@@ -279,7 +279,6 @@ class Strawberry {
   }
 
   hasSpaceForTopper(trajectory, col, row) {
-    // BROKEN
     if (trajectory === TRAVEL_UP) {
       return this.hasSpaceInRectangle(col, row, col - 1, col + 1, row - 1, row);
     } else if (trajectory === TRAVEL_LEFT) {

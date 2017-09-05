@@ -90,6 +90,38 @@ class PlantNode {
     }
   }
 
+  isSpaceAvailable(c, r) {
+    return this.canvasGrid.isInBounds(c, r) && !this.canvasGrid.isOccupied(c, r);
+  }
+
+  growLeaves() {
+    const hasSpaceAbove =
+        this.hasSpaceInRectangle(this.col, this.col + 3, this.row - 3, this.row);
+    const hasSpaceBelow =
+        this.hasSpaceInRectangle(this.col - 3, this.col, this.row, this.row + 3);
+
+    if (!hasSpaceAbove && !hasSpaceBelow) {
+      return;
+    }
+
+    let growAbove = hasSpaceAbove;
+    if (hasSpaceAbove && hasSpaceBelow) {
+      growAbove = Math.random() > 0.5;
+    }
+
+    if (growAbove) {
+      console.assert(hasSpaceAbove);
+      this.canvasGrid.update(this.col + 1, this.row - 2, GREEN);
+      this.canvasGrid.update(this.col + 2, this.row - 2, GREEN);
+      this.canvasGrid.update(this.col + 1, this.row - 1, GREEN);
+    } else {
+      console.assert(hasSpaceBelow);
+      this.canvasGrid.update(this.col - 1, this.row + 2, GREEN);
+      this.canvasGrid.update(this.col - 2, this.row + 1, GREEN);
+      this.canvasGrid.update(this.col - 1, this.row + 1, GREEN);
+    }
+  }
+
   canBloom(width, height) {
     const trajectory = this.getTrajectory();
     let startCol;

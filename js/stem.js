@@ -67,7 +67,6 @@ class Stem {
 
     if (this.strawberry) {
       if (this.strawberry.isGrown) {
-        console.log('grown!');
         this.isGrown = true;
         return;
       } else {
@@ -76,23 +75,10 @@ class Stem {
     } else {
       const nextNode = this.frontier.growNewNode();
       if (nextNode) {
-        this.frontier = nextNode;
-        let trajectory = 'unknown';
-        switch(this.frontier.getTrajectory()) {
-          case TRAVEL_UP:
-            trajectory = 'up';
-            break;
-          case TRAVEL_RIGHT:
-            trajectory = 'right';
-            break;
-          case TRAVEL_DOWN:
-            trajectory = 'down';
-            break;
-          case TRAVEL_LEFT:
-            trajectory = 'left';
-            break;
+        if (Math.random() < 0.25) {
+          this.frontier.growLeaves();
         }
-        this.printDebug(`trajectory: ${trajectory}`);
+        this.frontier = nextNode;
       } else {
         this.isGrown = true;
       }
