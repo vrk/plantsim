@@ -3,17 +3,34 @@ class CanvasGrid {
     this.canvas = canvasElement;
     this.context = this.canvas.getContext('2d');
 
-    this.canvas.width = CANVAS_SIZE;
-    this.canvas.height = CANVAS_SIZE;
+    this.canvas.width = this.getCanvasSizeInRealPixels().width;
+    this.canvas.height = this.getCanvasSizeInRealPixels().height;
 
     this.initializePixels();
   }
 
+  getCanvasSizeInRealPixels() {
+    const CANVAS_SIZE = 640;
+    return {
+      width: CANVAS_SIZE,
+      height: CANVAS_SIZE
+    };
+  }
+
+  getCanvasSizeInPlantPixels() {
+    const canvasSize = this.getCanvasSizeInRealPixels();
+    return {
+      width: canvasSize.width / PIXEL_SIZE,
+      height: canvasSize.height / PIXEL_SIZE
+    };
+  }
+
   isInBounds(col, row) {
-    if (col < 0 || col >= PIXELS_WIDE) {
+    const plantPixelSize = this.getCanvasSizeInPlantPixels();
+    if (col < 0 || col >= plantPixelSize.width) {
       return false;
     }
-    if (row < 0 || row >= PIXELS_WIDE) {
+    if (row < 0 || row >= plantPixelSize.height) {
       return false;
     }
     return true;
@@ -24,10 +41,11 @@ class CanvasGrid {
   }
 
   initializePixels() {
+    const plantPixelSize = this.getCanvasSizeInPlantPixels();
     this.pixelData = [];
-    for (let col = 0; col < PIXELS_WIDE; col++) {
+    for (let col = 0; col < plantPixelSize.width; col++) {
       this.pixelData[col] = [];
-      for (let row = 0; row < PIXELS_WIDE; row++) {
+      for (let row = 0; row < plantPixelSize.height; row++) {
         this.pixelData[col][row] = null;
       }
     }
@@ -38,8 +56,9 @@ class CanvasGrid {
   }
 
   draw() {
-    for (let col = 0; col < PIXELS_WIDE; col++) {
-      for (let row = 0; row < PIXELS_WIDE; row++) {
+    const plantPixelSize = this.getCanvasSizeInPlantPixels();
+    for (let col = 0; col < plantPixelSize.width; col++) {
+      for (let row = 0; row < plantPixelSize.height; row++) {
         const colorValue = this.pixelData[col][row];
         if (colorValue) {
           this.drawSquare(col, row, colorValue);
@@ -56,6 +75,5 @@ class CanvasGrid {
         PIXEL_SIZE,
         PIXEL_SIZE);
   }
-
 
 }

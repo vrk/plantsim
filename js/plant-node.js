@@ -194,8 +194,6 @@ class PlantNode {
       startRow = this.row - height;
       endRow = this.row - 1;  // inclusive
     } else if (trajectory === TRAVEL_LEFT) {
-
-      // TODO: Fix bug!!! Bounds wrong here.
       startCol = this.col - height;
       endCol = this.col - 1; // inclusive
       startRow = this.row - Math.floor(width / 2);

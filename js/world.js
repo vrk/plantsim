@@ -19,12 +19,14 @@ class World {
   onCanvasClicked(event) {
     const xPos = event.offsetX;
     const yPos = event.offsetY;
-    const col = Math.floor(xPos / CANVAS_SIZE * PIXELS_WIDE);
-    const row = Math.floor(yPos / CANVAS_SIZE * PIXELS_WIDE);
+    const realPixelSize = this.canvasGrid.getCanvasSizeInRealPixels();
+    const plantPixelSize = this.canvasGrid.getCanvasSizeInPlantPixels();
+    const groundLevel = plantPixelSize.height -  GROUND_HEIGHT;
+    const col = Math.floor(xPos / realPixelSize.width * plantPixelSize.width);
+    const row = Math.floor(yPos / realPixelSize.height * plantPixelSize.height);
     if (this.plant) {
       this.plant.updateNextSquare();
-    } else if (row > PIXELS_WIDE - GROUND_HEIGHT &&
-        row < PIXELS_WIDE -  GROUND_HEIGHT / 2) {
+    } else if (row > groundLevel && row < plantPixelSize.height - GROUND_HEIGHT / 2) {
       this.plant = this.ground.addSeed(col, row);
     }
     this.draw();

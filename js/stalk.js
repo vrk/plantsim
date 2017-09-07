@@ -25,6 +25,10 @@ class Stalk {
   grow(canvasGrid) {
     console.assert(!this.isGrown);
 
+    const plantPixelSize = this.canvasGrid.getCanvasSizeInPlantPixels();
+    const GROUND_LEVEL = plantPixelSize.height -  GROUND_HEIGHT;
+    const SPROUT_POINT = GROUND_LEVEL - 4;
+
     this.frontierRow--;
     if (this.frontierRow >= GROUND_LEVEL) {
       // Grow straight upward until ground is broken.
