@@ -6,21 +6,6 @@ body {
   height: 100vh;
 }
 
-#container {
-  width: 640px;
-}
-
-/* This is needed to make the height proportional to the width
-  (always a square) */
-#container-hack-layer {
-  position: relative;
-  padding-bottom: 100%;
-}
-
 #container canvas {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  left: 0;
   background-color: black;
 }

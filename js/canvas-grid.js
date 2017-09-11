@@ -3,6 +3,9 @@ class CanvasGrid {
     this.canvas = canvasElement;
     this.context = this.canvas.getContext('2d');
 
+    this.canvasRealWidth = window.innerWidth;
+    this.canvasRealHeight = window.innerHeight;
+
     this.canvas.width = this.getCanvasSizeInRealPixels().width;
     this.canvas.height = this.getCanvasSizeInRealPixels().height;
 
@@ -10,18 +13,17 @@ class CanvasGrid {
   }
 
   getCanvasSizeInRealPixels() {
-    const CANVAS_SIZE = 640;
     return {
-      width: CANVAS_SIZE,
-      height: CANVAS_SIZE
+      width: this.canvasRealWidth,
+      height: this.canvasRealHeight
     };
   }
 
   getCanvasSizeInPlantPixels() {
     const canvasSize = this.getCanvasSizeInRealPixels();
     return {
-      width: canvasSize.width / PIXEL_SIZE,
-      height: canvasSize.height / PIXEL_SIZE
+      width: Math.floor(canvasSize.width / PIXEL_SIZE),
+      height: Math.floor(canvasSize.height / PIXEL_SIZE)
     };
   }
 

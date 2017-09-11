@@ -7,6 +7,7 @@ class Ground {
   initialize() {
     const plantPixelSize = this.canvasGrid.getCanvasSizeInPlantPixels();
     const groundLevel = plantPixelSize.height -  GROUND_HEIGHT;
+    debugger;
     // Top of soil
     for (let col = 0; col < plantPixelSize.width; col++) {
       this.canvasGrid.update(col, groundLevel, '#5F574F');
