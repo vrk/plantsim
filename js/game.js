@@ -15,18 +15,17 @@ class Game {
     console.log('god clicked');
     this.godButtonElement.classList.add('selected');
     this.waterButtonElement.classList.remove('selected');
+    this.world.setIsActive(true);
   }
 
   onWaterButtonClicked() {
     console.log('water clicked');
     this.waterButtonElement.classList.add('selected');
     this.godButtonElement.classList.remove('selected');
+    this.world.setIsActive(false);
   }
 
   start() {
-
-
-
     this.world.initialize();
     this.world.draw();
   }

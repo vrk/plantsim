@@ -5,6 +5,7 @@ class World {
     this.onCanvasClicked = this.onCanvasClicked.bind(this);
 
     this.ground = new Ground(this.canvasGrid);
+    this.isActive = false;
   }
 
   initialize() {
@@ -12,11 +13,19 @@ class World {
     this.canvasElement.addEventListener('click', this.onCanvasClicked);
   }
 
+  setIsActive(isActive) {
+    this.isActive = isActive;
+  }
+
   draw() {
     this.canvasGrid.draw();
   }
 
   onCanvasClicked(event) {
+    if (!this.isActive) {
+      return;
+    }
+
     const xPos = event.offsetX;
     const yPos = event.offsetY;
     const realPixelSize = this.canvasGrid.getCanvasSizeInRealPixels();
