@@ -5,7 +5,7 @@ class World {
     this.onCanvasClicked = this.onCanvasClicked.bind(this);
 
     this.ground = new Ground(this.canvasGrid);
-    this.isActive = false;
+    this.mode = null;
   }
 
   initialize() {
@@ -13,8 +13,8 @@ class World {
     this.canvasElement.addEventListener('click', this.onCanvasClicked);
   }
 
-  setIsActive(isActive) {
-    this.isActive = isActive;
+  setMode(mode) {
+    this.mode = mode;
   }
 
   draw() {
@@ -22,7 +22,7 @@ class World {
   }
 
   onCanvasClicked(event) {
-    if (!this.isActive) {
+    if (this.mode !== GOD_MODE) {
       return;
     }
 
@@ -31,8 +31,10 @@ class World {
     const realPixelSize = this.canvasGrid.getCanvasSizeInRealPixels();
     const plantPixelSize = this.canvasGrid.getCanvasSizeInPlantPixels();
     const groundLevel = plantPixelSize.height -  GROUND_HEIGHT;
+
     const col = Math.floor(xPos / realPixelSize.width * plantPixelSize.width);
     const row = Math.floor(yPos / realPixelSize.height * plantPixelSize.height);
+
     if (this.plant) {
       this.plant.updateNextSquare();
     } else if (row > groundLevel && row < plantPixelSize.height - GROUND_HEIGHT / 2) {

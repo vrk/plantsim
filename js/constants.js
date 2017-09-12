@@ -16,6 +16,8 @@ const LEAN_RIGHT = Symbol('stem leans right');
 const LEAN_LEFT_MIDDLE = Symbol('stem leans left and up');
 const LEAN_RIGHT_MIDDLE = Symbol('stem leans right and up');
 
+const GOD_MODE = Symbol('god mode');
+const WATER_MODE = Symbol('water mode');
 
 // Indexes into the PlantNodes array
 const TOP_LEFT = 0;
