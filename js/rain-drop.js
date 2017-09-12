@@ -29,7 +29,7 @@ class RainDrop {
     } else if (this.state === DROP_SPLASHING) {
       if (this.splashFrame === 1) {
         this.canvasGrid.drawSquare(this.col, this.row - 1, BRIGHT_BLUE);
-      } else if (this.splashFrame === 2){
+      } else if (this.splashFrame === 2) {
         this.canvasGrid.drawSquare(this.col - 1, this.row - 1, BRIGHT_BLUE);
         this.canvasGrid.drawSquare(this.col + 1, this.row - 1, BRIGHT_BLUE);
         this.state = DROP_DROPPED;

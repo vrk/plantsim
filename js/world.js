@@ -28,7 +28,6 @@ class World {
     if (this.mode !== WATER_MODE) {
       return;
     }
-    console.log('running!');
 
     this.canvasGrid.clear();
     this.canvasGrid.draw();
@@ -56,7 +55,6 @@ class World {
     if (this.mode === GOD_MODE) {
       this.growPlant(col, row);
     } else if (this.mode === WATER_MODE) {
-      console.log('water');
       const rainDrop = new RainDrop(this.canvasGrid, col, row);
       this.cloud.push(rainDrop);
     }
