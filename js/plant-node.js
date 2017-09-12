@@ -210,7 +210,7 @@ class PlantNode {
       endRow = this.row + Math.floor(width / 2);  // inclusive
     }
 
-    this.updateRect(startCol, endCol, startRow, endRow, 'black');
+    this.updateRect(startCol, endCol, startRow, endRow, RESERVED_COLOR);
   }
 
   updateRect(startCol, endCol, startRow, endRow, color) {

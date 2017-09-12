@@ -12,6 +12,9 @@ const YOUNG_STRAWBERRY = '#FFCCAA';
 const RED_STRAWBERRY = '#FF004D';
 const PINK_STRAWBERRY = '#FF77A8';
 
+// This is used to indicate a fake color that should not be drawn.
+const RESERVED_COLOR = '---';
+
 const LEAN_LEFT = Symbol('stem leans left');
 const LEAN_RIGHT = Symbol('stem leans right');
 const LEAN_LEFT_MIDDLE = Symbol('stem leans left and up');

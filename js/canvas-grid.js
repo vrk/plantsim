@@ -39,8 +39,15 @@ class CanvasGrid {
     return true;
   }
 
+  // This returns whether or not a pixel data is either actually occupied or
+  // "reserved" to be occupied
   isOccupied(col, row) {
     return this.pixelData[col][row] !== null;
+  }
+
+  isOccupiedByVisibleSquare(col, row) {
+    return this.isOccupied(col, row) &&
+        this.pixelData[col][row] !== RESERVED_COLOR;
   }
 
   initializePixels() {
@@ -63,7 +70,7 @@ class CanvasGrid {
     for (let col = 0; col < plantPixelSize.width; col++) {
       for (let row = 0; row < plantPixelSize.height; row++) {
         const colorValue = this.pixelData[col][row];
-        if (colorValue) {
+        if (colorValue && colorValue !== RESERVED_COLOR) {
           this.drawSquare(col, row, colorValue);
         }
       }

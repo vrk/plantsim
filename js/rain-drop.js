@@ -10,7 +10,7 @@ class RainDrop {
 
   update() {
     if (this.state === DROP_FALLING) {
-      if (this.canvasGrid.isOccupied(this.col, this.row + 1)) {
+      if (this.canvasGrid.isOccupiedByVisibleSquare(this.col, this.row + 1)) {
         this.state = DROP_SPLASHING;
       } else {
         this.row++;
