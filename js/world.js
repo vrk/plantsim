@@ -6,7 +6,7 @@ class World {
     this.runGameLoop = this.runGameLoop.bind(this);
 
     this.ground = new Ground(this.canvasGrid);
-    this.sky = new Sky(this.canvasGrid, this.canvasElement);
+    this.waterBucket = new WaterBucket(this.canvasGrid, this.canvasElement);
     this.mode = null;
 
   }
@@ -32,8 +32,8 @@ class World {
     this.canvasGrid.clear();
     this.canvasGrid.draw();
 
-    this.sky.update();
-    this.sky.draw();
+    this.waterBucket.update();
+    this.waterBucket.draw();
 
     requestAnimationFrame(this.runGameLoop);
   }
@@ -54,7 +54,7 @@ class World {
     if (this.mode === GOD_MODE) {
       this.growPlant(col, row);
     } else if (this.mode === WATER_MODE) {
-      this.sky.startRaining(col, row);
+      this.waterBucket.startRaining(col, row);
     }
     this.draw();
   }

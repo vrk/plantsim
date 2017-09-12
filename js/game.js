@@ -36,7 +36,6 @@ class Game {
     this.world.setMode(SHEAR_MODE);
   }
 
-
   start() {
     this.world.initialize();
     this.world.draw();

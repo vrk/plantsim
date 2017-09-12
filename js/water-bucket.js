@@ -1,4 +1,4 @@
-class Sky {
+class WaterBucket {
   constructor(canvasGrid, canvasElement) {
     this.canvasGrid = canvasGrid;
     this.canvasElement = canvasElement;
