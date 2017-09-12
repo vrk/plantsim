@@ -22,6 +22,7 @@ const LEAN_RIGHT_MIDDLE = Symbol('stem leans right and up');
 
 const GOD_MODE = Symbol('god mode');
 const WATER_MODE = Symbol('water mode');
+const SHEAR_MODE = Symbol('water mode');
 
 const DROP_FALLING = Symbol('raindrop fall');
 const DROP_SPLASHING = Symbol('raindrop splash');

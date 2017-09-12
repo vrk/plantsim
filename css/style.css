@@ -38,20 +38,23 @@ body {
   padding-right: 50px;
 }
 
-#god-button,
-#water-button {
-  width: 50px;
-  height: 50px;
-  margin: 10px;
-  border: 5px solid #AB5236;
-}
-
 #god-button {
   background-color: #FFEC27;
 }
 
 #water-button {
   background-color: #29ADFF;
+}
+
+#shear-button {
+  background-color: #1D2B53;
+}
+
+#fieldset > div {
+  width: 50px;
+  height: 50px;
+  margin: 10px;
+  border: 5px solid #AB5236;
 }
 
 #fieldset .selected {
