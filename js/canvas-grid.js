@@ -1,6 +1,7 @@
 class CanvasGrid {
   constructor(canvasElement) {
     this.canvas = canvasElement;
+    this.canvas.imageSmoothingEnabled = false;
     this.context = this.canvas.getContext('2d');
 
     this.canvasRealWidth = window.innerWidth;

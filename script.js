@@ -1,6 +1,5 @@
-const world = new World();
-world.initialize();
-world.draw();
+const game = new Game();
+game.start();
 
 const consoleStyle = 'color: #008751; font-size: 12px';
 console.log('%c------------------------------------------------------', consoleStyle);
