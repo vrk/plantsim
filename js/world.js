@@ -3,9 +3,12 @@ class World {
     this.canvasElement = document.querySelector('canvas');
     this.canvasGrid = new CanvasGrid(this.canvasElement);
     this.onCanvasClicked = this.onCanvasClicked.bind(this);
+    this.runGameLoop = this.runGameLoop.bind(this);
 
     this.ground = new Ground(this.canvasGrid);
     this.mode = null;
+
+    this.cloud = [];
   }
 
   initialize() {
@@ -15,6 +18,28 @@ class World {
 
   setMode(mode) {
     this.mode = mode;
+
+    if (this.mode === WATER_MODE) {
+      this.runGameLoop();
+    }
+  }
+
+  runGameLoop() {
+    if (this.mode !== WATER_MODE) {
+      return;
+    }
+    console.log('running!');
+
+    this.canvasGrid.clear();
+    this.canvasGrid.draw();
+
+    for (const rainDrop of this.cloud) {
+      rainDrop.update();
+      rainDrop.draw();
+    }
+    this.cloud = this.cloud.filter(drop => drop.isActive());
+
+    requestAnimationFrame(this.runGameLoop);
   }
 
   draw() {
@@ -33,11 +58,9 @@ class World {
       this.growPlant(col, row);
     } else if (this.mode === WATER_MODE) {
       console.log('water');
-      const rainDrop = new RainDrop(this.canvasGrid);
-      rainDrop.update(col, row);
-      rainDrop.draw();
+      const rainDrop = new RainDrop(this.canvasGrid, col, row);
+      this.cloud.push(rainDrop);
     }
-
     this.draw();
   }
 

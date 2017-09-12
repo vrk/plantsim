@@ -20,6 +20,10 @@ const LEAN_RIGHT_MIDDLE = Symbol('stem leans right and up');
 const GOD_MODE = Symbol('god mode');
 const WATER_MODE = Symbol('water mode');
 
+const DROP_FALLING = Symbol('raindrop fall');
+const DROP_SPLASHING = Symbol('raindrop splash');
+const DROP_DROPPED = Symbol('raindrop done');
+
 // Indexes into the PlantNodes array
 const TOP_LEFT = 0;
 const TOP_MIDDLE = 1;
@@ -36,6 +40,8 @@ const STRAWBERRY_WIDTH = 5;
 const SMALL_SIZE = 5;
 const MEDIUM_SIZE = 6;
 const LARGE_SIZE = 7;
+
+const NUMBER_SPLASH_FRAMES = 2;
 
 // Set to an even number for even growth
 const MAX_ACTIVE_STEMS = 4;
