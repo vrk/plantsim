@@ -6,14 +6,14 @@ class World {
     this.runGameLoop = this.runGameLoop.bind(this);
 
     this.ground = new Ground(this.canvasGrid);
+    this.sky = new Sky(this.canvasGrid, this.canvasElement);
     this.mode = null;
 
-    this.cloud = [];
   }
 
   initialize() {
     this.ground.initialize();
-    this.canvasElement.addEventListener('click', this.onCanvasClicked);
+    this.canvasElement.addEventListener('mousedown', this.onCanvasClicked);
   }
 
   setMode(mode) {
@@ -32,15 +32,14 @@ class World {
     this.canvasGrid.clear();
     this.canvasGrid.draw();
 
-    for (const rainDrop of this.cloud) {
-      rainDrop.update();
-      rainDrop.draw();
-    }
-    this.cloud = this.cloud.filter(drop => drop.isActive());
+    this.sky.update();
+    this.sky.draw();
+
     requestAnimationFrame(this.runGameLoop);
   }
 
   draw() {
+    this.canvasGrid.clear();
     this.canvasGrid.draw();
   }
 
@@ -55,8 +54,7 @@ class World {
     if (this.mode === GOD_MODE) {
       this.growPlant(col, row);
     } else if (this.mode === WATER_MODE) {
-      const rainDrop = new RainDrop(this.canvasGrid, col, row);
-      this.cloud.push(rainDrop);
+      this.sky.startRaining(col, row);
     }
     this.draw();
   }

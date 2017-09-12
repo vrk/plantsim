@@ -27,6 +27,8 @@ const DROP_FALLING = Symbol('raindrop fall');
 const DROP_SPLASHING = Symbol('raindrop splash');
 const DROP_DROPPED = Symbol('raindrop done');
 
+const MAX_DROPS_IN_A_ROW = 7;
+
 // Indexes into the PlantNodes array
 const TOP_LEFT = 0;
 const TOP_MIDDLE = 1;
