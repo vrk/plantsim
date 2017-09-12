@@ -38,7 +38,6 @@ class World {
       rainDrop.draw();
     }
     this.cloud = this.cloud.filter(drop => drop.isActive());
-
     requestAnimationFrame(this.runGameLoop);
   }
 
