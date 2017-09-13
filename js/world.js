@@ -7,6 +7,7 @@ class World {
 
     this.ground = new Ground(this.canvasGrid);
     this.waterBucket = new WaterBucket(this.canvasGrid, this.canvasElement);
+    this.scissors = new Scissors(this.canvasGrid, this.canvasElement);
     this.mode = null;
 
   }
@@ -19,21 +20,26 @@ class World {
   setMode(mode) {
     this.mode = mode;
 
-    if (this.mode === WATER_MODE) {
+    if (this.mode === WATER_MODE || this.mode === SHEAR_MODE) {
       this.runGameLoop();
     }
   }
 
   runGameLoop() {
-    if (this.mode !== WATER_MODE) {
+    if (this.mode !== WATER_MODE && this.mode !== SHEAR_MODE) {
       return;
     }
 
     this.canvasGrid.clear();
     this.canvasGrid.draw();
 
-    this.waterBucket.update();
-    this.waterBucket.draw();
+    if (this.mode === WATER_MODE) {
+      this.waterBucket.update();
+      this.waterBucket.draw();
+    } else if (this.mode === SHEAR_MODE) {
+      this.scissors.update();
+      this.scissors.draw();
+    }
 
     requestAnimationFrame(this.runGameLoop);
   }
@@ -55,6 +61,8 @@ class World {
       this.growPlant(col, row);
     } else if (this.mode === WATER_MODE) {
       this.waterBucket.startRaining(col, row);
+    } else if (this.mode === SHEAR_MODE) {
+      this.scissors.startCutting(col, row);
     }
     this.draw();
   }

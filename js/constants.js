@@ -7,6 +7,7 @@ const SEED_YELLOW = '#FFA300';
 const BRIGHT_YELLOW = '#FFEC27';
 const PICO_WHITE = '#FFF1E8';
 const BRIGHT_BLUE = '#29ADFF';
+const LIGHT_GRAY = '#C2C3C7';
 
 const YOUNG_STRAWBERRY = '#FFCCAA';
 const RED_STRAWBERRY = '#FF004D';
