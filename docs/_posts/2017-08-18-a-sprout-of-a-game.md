@@ -16,7 +16,7 @@ Wooooo, I started coding!
 
 And here's a video of the action:
 
-<video src="{{ site.url }}{{ site.baseurl }}/assets/videos/plant-grow.mp4" height="300" autoplay loop></video>
+<video src="{{ site.url }}{{ site.baseurl }}/assets/videos/plant-grow.mp4" height="300" autoplay loop controls muted></video>
 
 The actual game will not involve clicking a canvas to make the plant grow - you'll need to give it water and love and attention etc. But I'm going with this for now, just to get the random generation part working.
 
