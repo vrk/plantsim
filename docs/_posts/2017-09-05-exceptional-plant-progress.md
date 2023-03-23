@@ -14,7 +14,7 @@ id: 104
 
 Latest video, plant timelapse:
 
-<video src="{{ site.url }}{{ site.baseurl }}/assets/videos/plant-timelapse.mp4" height="300" autoplay loop></video>
+<video src="{{ site.url }}{{ site.baseurl }}/assets/videos/plant-timelapse.mp4" height="300" controls autoplay muted loop></video>
 
 SO MUCH PROGRESS since the last update!!
 
