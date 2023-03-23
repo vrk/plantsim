@@ -16,7 +16,7 @@ I completed my TODOs from yesterday: plants now grow in 4 directions (well, up t
 
 Latest video:
 
-<video src="{{ site.url }}{{ site.baseurl }}/assets/videos/4-sprout-grow.mp4" height="300" autoplay loop></video>
+<video src="{{ site.url }}{{ site.baseurl }}/assets/videos/4-sprout-grow.mp4" height="300" autoplay loop controls muted></video>
 
 🎵 _blossom of snow may you bloom and grow_ 🎵
 
