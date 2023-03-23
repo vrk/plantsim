@@ -16,7 +16,7 @@ Now there are two randomly growing stems!
 
 Latest video:
 
-<video src="{{ site.url }}{{ site.baseurl }}/assets/videos/2-sprout-grow.mp4" height="300" autoplay loop></video>
+<video src="{{ site.url }}{{ site.baseurl }}/assets/videos/2-sprout-grow.mp4" height="300" autoplay loop controls muted></video>
 
 ### Implementation Notes
 
